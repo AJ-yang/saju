@@ -10,6 +10,7 @@
 <meta property="og:description" content="己土 일간 명식 풀이와, 가족·친구·연인·동료 17명을 같은 척도로 채점한 궁합 기록.">
 <meta property="og:type" content="website">
 <style>
+
   /* 리셋 — Artifact 호스트가 넣어주던 것을 직접 포함한다 */
   *,*::before,*::after { box-sizing:border-box; }
   * { margin:0; }
@@ -23,6 +24,7 @@
     box-shadow:var(--shadow-1); }
   .themetoggle:hover { background:var(--surface-2); color:var(--fg); }
   @media (max-width:640px) { .themetoggle { top:.6rem; right:.6rem; width:2.1rem; height:2.1rem; font-size:.95rem; } }
+
 
   /* ── 오방색 토큰 ────────────────────────────────
      木靑 · 火赤 · 土黃 · 金白 · 水黑
@@ -179,6 +181,7 @@
   .sum-note { margin-left:auto; font-size:.83rem; color:var(--fg-3); font-weight:400; }
 
   /* ── 탭 ───────────────────────────────────── */
+  .tabnote { font-size:.94rem; color:var(--fg-2); line-height:1.68; }
   .subhead { font-size:1.06rem; font-weight:650; letter-spacing:-.018em; color:var(--fg-2);
              margin-top:.7rem; display:flex; align-items:center; gap:.7rem; }
   .subhead::after { content:""; flex:1; height:1px; background:var(--rule-soft); }
@@ -755,7 +758,7 @@
 
     <!-- 연인 -->
     <div class="tabpanel" id="p-gajok" role="tabpanel" aria-labelledby="t-gajok">
-      <p class="sec-head" style="border:none;padding:0;font-size:.94rem;color:var(--fg-2);line-height:1.65">가족은 고를 수 있는 관계가 아니다. 그래서 점수를 <strong>“맞는가”가 아니라 “어떻게 지내는 게 나은가”</strong>로 읽어야 한다. 낮은 점수는 사이가 나쁘다는 뜻이 아니라, <strong>서로에게 자연스럽게 하는 행동이 상대에게 잘 안 먹힌다</strong>는 뜻이다. 셋 다 태어난 시각을 몰라 여섯 글자로 계산했고, 시각으로 보는 항목(15점)은 제외한 뒤 85점 만점을 환산했다.</p>
+      <p class="tabnote">가족은 고를 수 있는 관계가 아니다. 그래서 점수를 <strong>“맞는가”가 아니라 “어떻게 지내는 게 나은가”</strong>로 읽어야 한다. 낮은 점수는 사이가 나쁘다는 뜻이 아니라, <strong>서로에게 자연스럽게 하는 행동이 상대에게 잘 안 먹힌다</strong>는 뜻이다. 셋 다 태어난 시각을 몰라 여섯 글자로 계산했고, 시각으로 보는 항목(15점)은 제외한 뒤 85점 만점을 환산했다.</p>
 
       <details class="panel person" style="--bar:var(--hwang)">
         <summary>
@@ -1402,7 +1405,7 @@
           </div>
 
 <div class="tabpanel" id="p-dongryo" role="tabpanel" aria-labelledby="t-dongryo">
-      <p class="sec-head" style="border:none;padding:0;font-size:.94rem;color:var(--fg-2);line-height:1.65">배점은 친구와 같다. 다만 동료는 <strong>일을 통해 만나는 관계</strong>라, 내 卯(일·책임)가 특히 강하게 작동하는 영역이라는 점을 감안해서 읽는 게 맞다. 태어난 시각을 몰라 여섯 글자로 계산했고 시각으로 보는 항목(15점)은 제외한 뒤 85점 만점을 환산했다.</p>
+      <p class="tabnote">배점은 친구와 같다. 다만 동료는 <strong>일을 통해 만나는 관계</strong>라, 내 卯(일·책임)가 특히 강하게 작동하는 영역이라는 점을 감안해서 읽는 게 맞다. 태어난 시각을 몰라 여섯 글자로 계산했고 시각으로 보는 항목(15점)은 제외한 뒤 85점 만점을 환산했다.</p>
 
       <details class="panel person" style="--bar:var(--cheong)" open>
         <summary>
@@ -1454,11 +1457,6 @@
       </details>
     </div>
 
-    <!-- 한눈에 -->
-    >
-
-    <!-- 용어와 규칙 -->
-    >
     <details class="panel" open>
       <summary>주고받는 균형 <span class="sum-note">점이 붙어 있고 오른쪽일수록 좋다</span></summary>
       <div class="det-body" style="padding-bottom:0;border:none"><p style="font-size:.93rem;color:var(--fg-2);line-height:1.65">두 점을 이은 선이 곧 격차다. <strong>점이 붙어 있을수록 고르고, 오른쪽에 있을수록 실제로 주고받는 게 많다.</strong> <span class="gl">(차이가 작아도 두 점이 왼쪽에 몰려 있으면 균형이 좋은 게 아니라 <strong>서로 얻는 게 없다</strong>는 뜻이다 — 그런 경우 점수를 붉게 표시했다)</span></p></div>
@@ -1607,7 +1605,6 @@
     select(0, false);
   })();
 </script>
-
 <button class="themetoggle" type="button" aria-label="밝은 화면과 어두운 화면 전환">
   <span aria-hidden="true">◐</span>
 </button>
