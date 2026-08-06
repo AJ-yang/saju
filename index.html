@@ -377,6 +377,49 @@
   footer { border-top:1px solid var(--rule); padding-top:1.25rem; }
   footer p { font-size:.85rem; color:var(--fg-3); line-height:1.68; max-width:70ch; }
 
+  /* ── 역산 시계 ────────────────────────────── */
+  .clock { padding:1.35rem 1.4rem 1.2rem; display:flex; flex-direction:column; gap:1.05rem; }
+  .clock-top { display:flex; align-items:baseline; gap:1.1rem; flex-wrap:wrap; }
+  .dday { font-family:var(--serif); font-size:2.35rem; line-height:1; color:var(--cheong);
+          letter-spacing:-.035em; white-space:nowrap; }
+  .clock-top .cl { font-size:.9rem; color:var(--fg-2); line-height:1.66; max-width:52ch; flex:1 1 18rem; }
+  .clock-now { font-size:.91rem; color:var(--fg-2); line-height:1.68; padding:.78rem .95rem;
+               background:var(--surface-2); border-radius:4px; border-left:3px solid var(--cheong); }
+  .clock-now b { display:block; font-size:.95rem; color:var(--fg); margin-bottom:.1rem; }
+  .marks { display:grid; grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr)); gap:1px;
+           background:var(--rule-soft); border:1px solid var(--rule-soft); border-radius:4px; overflow:hidden; }
+  .mark { background:var(--surface); padding:.72rem .85rem; display:flex; flex-direction:column; gap:.15rem; }
+  .mark em { font-style:normal; font-family:var(--mono); font-size:.75rem; letter-spacing:.09em; color:var(--fg-3); }
+  .mark span { font-size:.85rem; color:var(--fg-2); line-height:1.55; }
+  .mark.on { background:var(--tint); }
+  .mark.on em { color:var(--cheong); font-weight:700; }
+
+  /* ── 통과 문항 ────────────────────────────── */
+  .gate-lede { font-size:.92rem; color:var(--fg-2); line-height:1.72; margin-bottom:1rem; }
+  .verdict { display:grid; grid-template-columns:repeat(auto-fit,minmax(12.5rem,1fr)); gap:.55rem;
+             margin-top:1.1rem; padding-top:1rem; border-top:1px solid var(--rule-soft); }
+  .vd { padding:.75rem .85rem; background:var(--surface-2); border-radius:4px;
+        border-top:3px solid var(--tone); display:flex; flex-direction:column; gap:.2rem; }
+  .vd em { font-style:normal; font-family:var(--mono); font-size:.78rem; letter-spacing:.08em;
+           color:var(--tone); font-weight:700; }
+  .vd span { font-size:.86rem; color:var(--fg-2); line-height:1.62; }
+  .vd.good{--tone:var(--cheong)} .vd.mid{--tone:var(--hwang)} .vd.bad{--tone:var(--ju)}
+
+  /* ── 역할 배치 ────────────────────────────── */
+  .rolerows { display:flex; flex-direction:column; }
+  .rrow { display:grid; grid-template-columns:11.5rem 1fr; gap:1.1rem; align-items:start;
+          padding:.85rem 0; border-bottom:1px solid var(--rule-soft); }
+  .rrow:last-child { border-bottom:none; padding-bottom:.15rem; }
+  .rlab { display:flex; flex-direction:column; line-height:1.38; border-left:3px solid var(--tone); padding-left:.72rem; }
+  .rlab b { font-size:.92rem; font-weight:650; letter-spacing:-.015em; }
+  .rlab small { font-size:.79rem; color:var(--fg-3); line-height:1.5; }
+  .rchips { display:flex; flex-wrap:wrap; gap:.4rem; padding-top:.1rem; }
+  .rc { display:inline-flex; align-items:baseline; gap:.38rem; font-size:.85rem; font-weight:650;
+        letter-spacing:-.015em; padding:.26rem .58rem; border-radius:3px; background:var(--surface-2); color:var(--fg); }
+  .rc i { font-style:normal; font-family:var(--mono); font-size:.76rem; font-weight:500; color:var(--tone); }
+  .roles-use { font-size:.88rem; color:var(--fg-2); line-height:1.7; margin-top:.4rem;
+               padding-top:.9rem; border-top:1px solid var(--rule-soft); }
+
   /* ── 반응형 ───────────────────────────────── */
   @media (max-width:900px) { .p-body { grid-template-columns:1fr; gap:1.25rem; } }
   @media (max-width:780px) {
@@ -403,6 +446,8 @@
     .du-note span { grid-template-columns:1fr; gap:.15rem; }
     .kv { grid-template-columns:1fr; gap:.2rem 0; }
     .kv dt { padding-top:.5rem; }
+    .rrow { grid-template-columns:1fr; gap:.55rem; }
+    .dday { font-size:2rem; }
   }
 
   :focus-visible { outline:2.5px solid var(--cheong); outline-offset:2px; border-radius:3px; }
@@ -430,6 +475,21 @@
       <span class="chip"><b>기록</b>21명</span>
     </div>
   </header>
+
+  <!-- ═══════ 역산 시계 ═══════ -->
+  <div class="panel clock">
+    <div class="clock-top">
+      <span class="dday" id="dday">D-—</span>
+      <span class="cl">지금은 <strong>책임과 직책을 맡아 크는 구간</strong>(2019–2028)이다. 이 창이 닫히고 <strong>타고나지 못한 “돈” 기운이 20년간 들어오는 구간</strong>이 열리기까지 남은 날. 아래 풀이는 전부 이 시계 위에서 읽는 것이다.</span>
+    </div>
+    <p class="clock-now" id="yearnote"><b>2026년 — 완성하는 해</b>새로 벌이기보다 벌여 놓은 걸 끝낸다. 시작 세 개보다 완성 하나가 낫다.</p>
+    <div class="marks" id="marks">
+      <div class="mark" data-from="2026" data-to="2027"><em>2026–2027</em><span>안으로 쌓는 구간. 2028년에 낼 것을 지금 만든다.</span></div>
+      <div class="mark" data-from="2028" data-to="2028"><em>2028</em><span>막혀 있던 표현의 길이 처음 열리고, 돈 기운도 맞물린다.</span></div>
+      <div class="mark" data-from="2029" data-to="2048"><em>2029–2048</em><span>돈 기운 20년. 동시에 가장 필요한 나무가 세 글자로 완성된다.</span></div>
+      <div class="mark" data-from="2049" data-to="2068"><em>2049–2068</em><span>표현 기운 20년. 지금 쌓아 두는 기록이 그때 자산이 된다.</span></div>
+    </div>
+  </div>
 
   <!-- ═══════ 내 사주 ═══════ -->
   <section>
@@ -657,6 +717,21 @@
         <div class="rx-item"><span class="n">三</span><div><b>돈은 감각이 아니라 규칙으로</b><p>거두는 기운이 없는데 나와 닮은 기운(동료·경쟁자)은 넘친다.<span class="gl">(벌어도 안 쌓이고, 새는 경로가 대부분 사람이라는 뜻)</span> 돈이 대부분 사람을 통해 샌다는 뜻이다. 2029년 돈 기운이 들어오기 전에 지분·계약·정산 원칙을 문서로 정해 둘 것.</p></div></div>
       </div>
     </details>
+
+    <details>
+      <summary>새 일을 받을 때 <span class="sum-note">통과 문항 셋</span></summary>
+      <div class="det-body">
+        <p class="gate-lede">바로 위 세 가지를 <strong>제안이 들어왔을 때 그 자리에서 쓰는 판정 문항</strong>으로 내려 쓴 것이다. 잘 될지를 점치는 게 아니라, <strong>이 여덟 글자가 반복해서 걸리는 자리</strong>를 시작 전에 막는 용도다. 그래서 사주를 믿든 안 믿든 그대로 쓸 수 있다.</p>
+        <div class="rx-item"><span class="n">一</span><div><b>마감과 책임자가 정해져 있나</b><p>눌릴 때만 성능이 나는 배열이다.<span class="gl">(굳어 있는 흙은 나무뿌리가 파고들어야 쓸모가 생긴다)</span> 마감도 책임도 없는 자리는 편해 보이지만, 그 편함이 그대로 정체가 된다. <strong>자유로운 조건은 이 사주에 혜택이 아니라 손해다.</strong></p></div></div>
+        <div class="rx-item"><span class="n">二</span><div><b>끝나고 내 이름으로 남는 게 있나</b><p>만들어 내보내는 통로가 타고나기를 0%다. 의식해서 챙기지 않으면 <strong>일은 했는데 남는 게 없는 형태</strong>로 끝난다. 산출물이 무엇인지 시작할 때 한 줄로 못 적으면, 끝나고도 못 적는다.</p></div></div>
+        <div class="rx-item"><span class="n">三</span><div><b>돈 나누는 규칙이 문서로 있나</b><p>거둘 그릇이 0인데 나눠 갈 사람은 62.5%다. <strong>새는 경로가 대부분 사람</strong>이라, 사이가 좋을 때 안 정한 규칙은 사이가 나빠진 뒤에는 못 정한다. 금액보다 <strong>정하는 시점</strong>이 중요하다.</p></div></div>
+        <div class="verdict">
+          <div class="vd good"><em>셋 다 ○</em><span>받는다. 이 사주가 가장 빨리 크는 형태다.</span></div>
+          <div class="vd mid"><em>둘만 ○</em><span>빈 칸을 먼저 채우고 받는다 — 마감을 걸든, 산출물을 정하든, 정산 규칙을 쓰든.</span></div>
+          <div class="vd bad"><em>하나 이하</em><span>거절한다. 시작할 때 없던 조건이 중간에 생기는 경우는 드물다.</span></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- ═══════ 궁합 ═══════ -->
@@ -760,6 +835,43 @@
         <span><i style="background:var(--hwang)"></i>50–69점</span>
         <span><i style="background:var(--ju)"></i>50점 미만</span>
       </div>
+    </div>
+
+    <div class="panel dist-box">
+      <h3>역할로 다시 묶기</h3>
+      <p class="cap">같은 사람들을 점수 순위가 아니라 <strong>내게 비어 있는 칸을 누가 채워주는지</strong>로 다시 묶은 것이다. 각자의 여덟 글자에서 <strong>그 기운이 25% 이상인 사람</strong>을 넣었고, 한 사람이 여러 줄에 들어갈 수 있다. 태어난 시각을 몰라 여섯 글자로 계산한 사람은 비율이 16.7씩 움직인다.</p>
+      <div class="rolerows">
+
+        <div class="rrow t-wood">
+          <div class="rlab"><b>마감을 걸어줄 사람</b><small>나무 — 책임 · 규율<br>내게 가장 필요한 기운</small></div>
+          <div class="rchips">
+            <span class="rc">유주형<i>37.5</i></span><span class="rc">최윤성<i>37.5</i></span><span class="rc">김아현<i>37.5</i></span><span class="rc">이예준<i>37.5</i></span><span class="rc">신고훈<i>37.5</i></span><span class="rc">문지윤<i>37.5</i></span><span class="rc">노수민<i>25</i></span><span class="rc">김근영<i>25</i></span>
+          </div>
+        </div>
+
+        <div class="rrow t-metal">
+          <div class="rlab"><b>결과물을 뽑아내게 하는 사람</b><small>쇠 — 표현 · 결과물<br>내 여덟 글자에 0%</small></div>
+          <div class="rchips">
+            <span class="rc">이은희<i>50</i></span><span class="rc">박정원<i>50</i></span><span class="rc">양정수<i>37.5</i></span><span class="rc">김근영<i>37.5</i></span><span class="rc">장현지<i>37.5</i></span><span class="rc">김진우<i>33.3</i></span><span class="rc">양대영<i>25</i></span><span class="rc">심효정<i>25</i></span><span class="rc">노수민<i>25</i></span><span class="rc">이예준<i>25</i></span><span class="rc">신승미<i>25</i></span>
+          </div>
+        </div>
+
+        <div class="rrow t-water">
+          <div class="rlab"><b>현실 감각을 주는 사람</b><small>물 — 돈 · 현실<br>내 여덟 글자에 0%</small></div>
+          <div class="rchips">
+            <span class="rc">김아현<i>50</i></span><span class="rc">문지윤<i>37.5</i></span><span class="rc">김도윤<i>33.3</i></span><span class="rc">박정원<i>25</i></span><span class="rc">심효정<i>25</i></span><span class="rc">김소연<i>25</i></span>
+          </div>
+        </div>
+
+        <div class="rrow t-earth">
+          <div class="rlab"><b>편하지만 새로 생기는 게 없는 쪽</b><small>흙 · 불 — 이미 넘치는 기운<br>채워주는 세 기운이 전부 25% 미만</small></div>
+          <div class="rchips">
+            <span class="rc">배주영<i>83.4</i></span><span class="rc">이제언<i>62.5</i></span><span class="rc">김정민<i>62.5</i></span>
+          </div>
+        </div>
+
+      </div>
+      <p class="roles-use"><strong>쓰는 법.</strong> 궁합 점수는 “그 관계 전체가 어떤가”이고, 이 표는 “어떤 일에 누구를 부르면 되는가”다. <strong>다른 질문에 답하는 표라서 순서가 어긋나는 게 정상이다</strong> — 총점이 낮은 사람이 특정 역할에서는 두껍게 들어오기도 한다. 막혀서 안 움직일 때는 첫 줄에, 만들어 놓고 못 낼 때는 둘째 줄에, 돈·계약이 걸린 판단에는 셋째 줄에 연락한다. 마지막 줄은 <strong>피할 사람 목록이 아니라 답을 구하지 않을 자리</strong>다 — 편하게 지내되, 여기서 방향을 물으면 이미 굳은 쪽이 더 굳는다.</p>
     </div>
 
     <h3 class="subhead">관계 유형별로 보기</h3>
@@ -1767,6 +1879,51 @@
 
 </div>
 
+<script>
+  /* 역산 시계 — 돈 구간이 열리는 2029년까지 남은 날과, 그 해에 할 일 */
+  (function () {
+    var dd = document.getElementById('dday');
+    var note = document.getElementById('yearnote');
+    var marks = document.getElementById('marks');
+    if (!dd) return;
+
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var open = new Date(2029, 0, 1);
+    var days = Math.round((open - today) / 86400000);
+    var y = today.getFullYear();
+
+    if (days > 0) {
+      dd.textContent = 'D-' + days;
+    } else {
+      dd.textContent = '열림';
+      var cl = dd.parentNode.querySelector('.cl');
+      if (cl) cl.innerHTML = '<strong>돈 기운이 들어오는 20년 구간</strong>이 이미 열려 있다. 나눠 갈 사람은 여전히 62.5%라, 규칙을 먼저 세워 두었는지가 이 구간의 결과를 가른다.';
+    }
+
+    var NOTE = {
+      2026: ['2026년 — 완성하는 해', '새로 벌이기보다 벌여 놓은 걸 끝낸다. 시작 세 개보다 완성 하나가 낫다.'],
+      2027: ['2027년 — 이어서 쌓는 해', '결이 작년과 같다. 내년에 열릴 출구에 얹을 재고를 만드는 해.'],
+      2028: ['2028년 — 출구가 열리는 해', '막혀 있던 표현의 길이 처음 열리고 돈 기운도 맞물린다. 쌓아 둔 것을 내는 해.'],
+      2029: ['2029년 — 정점 구간이 시작되는 해', '돈 기운 20년이 열리고 가장 필요한 나무가 세 글자로 완성된다. 독립을 한다면 구조적으로 지금부터다.']
+    };
+    if (note) {
+      var n = NOTE[y];
+      if (n) {
+        note.innerHTML = '<b>' + n[0] + '</b>' + n[1];
+      } else if (y > 2029) {
+        note.innerHTML = '<b>' + y + '년</b>아래 10년 운의 흐름 표에서 지금 칸을 확인할 것. 해마다 다시 적어 두는 자리다.';
+      }
+    }
+
+    if (marks) {
+      Array.prototype.forEach.call(marks.querySelectorAll('.mark'), function (m) {
+        var from = +m.getAttribute('data-from'), to = +m.getAttribute('data-to');
+        m.classList.toggle('on', y >= from && y <= to);
+      });
+    }
+  })();
+</script>
 <script>
   (function () {
     var list = document.querySelector('[role="tablist"]');
