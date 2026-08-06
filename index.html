@@ -101,6 +101,24 @@
   .chip.key { color:var(--cheong); }
   .chip.nil { color:var(--ju); }
 
+  /* ── 보기 전환 ────────────────────────────── */
+  .view { display:flex; flex-direction:column; gap:3.35rem; }
+  .view[hidden] { display:none; }            /* display 선언이 hidden 속성을 덮으므로 반드시 필요 */
+
+  .viewtabs { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+  .vt { display:flex; align-items:center; gap:.85rem; text-align:left; padding:.95rem 1.1rem;
+        border:1px solid var(--rule); border-radius:5px; background:var(--surface); cursor:pointer;
+        color:var(--fg-3); box-shadow:var(--shadow-1); transition:color .12s, border-color .12s, background .12s; }
+  .vt:hover { color:var(--fg-2); background:var(--surface-2); }
+  .vt em { flex:none; font-style:normal; font-family:var(--serif); font-size:1.5rem; line-height:1;
+           color:var(--rule); transition:color .12s; }
+  .vt span { display:flex; flex-direction:column; gap:.1rem; min-width:0; }
+  .vt b { font-size:1.02rem; font-weight:700; letter-spacing:-.022em; color:var(--fg-2); }
+  .vt small { font-size:.81rem; color:var(--fg-3); line-height:1.45; }
+  .vt[aria-selected="true"] { background:var(--tint); border-color:var(--cheong); box-shadow:var(--shadow-2); }
+  .vt[aria-selected="true"] em,.vt[aria-selected="true"] b { color:var(--cheong); }
+  .vt[aria-selected="true"] small { color:var(--fg-2); }
+
   /* ── 섹션 ─────────────────────────────────── */
   section { display:flex; flex-direction:column; gap:1.3rem; }
   .sec-head { display:flex; flex-direction:column; gap:.4rem; border-bottom:2px solid var(--rule); padding-bottom:.85rem; }
@@ -278,18 +296,19 @@
   .warn.note b { color:var(--fg-3); font-weight:650; }
 
   /* ── 순위 ─────────────────────────────────── */
-  .rank { display:flex; flex-direction:column; }
-  .rk { display:grid; grid-template-columns:1.9rem 8rem 1fr 3.2rem 3.4rem; gap:.85rem; align-items:center;
-        padding:.62rem 0; border-bottom:1px solid var(--rule-soft); }
-  .rk:last-child { border-bottom:none; }
-  .rk .pos { font-family:var(--mono); font-size:.85rem; font-weight:600; color:var(--fg-3); text-align:right; }
-  .rk .nm { display:flex; align-items:baseline; gap:.45rem; }
-  .rk .nm b { font-size:.95rem; font-weight:650; letter-spacing:-.015em; }
-  .rk .nm i { font-style:normal; font-size:.83rem; color:var(--fg-3); }
-  .rk .track { height:10px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+  /* 22줄을 한 줄씩 쌓으면 1,300px — 페이지의 14%를 순위 하나가 먹는다.
+     단수는 폭에 따라 스스로 정해지므로 사람이 늘어도 손댈 곳이 없다. */
+  .rank { columns:2 17rem; column-gap:2rem; }
+  .rk { display:grid; grid-template-columns:1.7rem 5.9rem 1fr 2.5rem 2.5rem; gap:.5rem; align-items:center;
+        padding:.36rem 0; border-bottom:1px solid var(--rule-soft); break-inside:avoid; }
+  .rk .pos { font-family:var(--mono); font-size:.78rem; font-weight:600; color:var(--fg-3); text-align:right; }
+  .rk .nm { display:flex; align-items:baseline; gap:.35rem; min-width:0; }
+  .rk .nm b { font-size:.88rem; font-weight:650; letter-spacing:-.02em; white-space:nowrap; }
+  .rk .nm i { font-style:normal; font-size:.76rem; color:var(--fg-3); }
+  .rk .track { height:7px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
   .rk .fill { height:100%; display:block; background:var(--tone); border-radius:3px; }
-  .rk .sc { font-family:var(--serif); font-size:1.19rem; text-align:right; color:var(--tone); letter-spacing:-.02em; }
-  .rk .rel { font-size:.79rem; color:var(--fg-3); text-align:right; }
+  .rk .sc { font-family:var(--serif); font-size:1.02rem; text-align:right; color:var(--tone); letter-spacing:-.02em; }
+  .rk .rel { font-size:.73rem; color:var(--fg-3); text-align:right; }
 
   /* ── 분포도 ───────────────────────────────── */
   .chart-box { padding:1.5rem 1.2rem 1.15rem; overflow-x:auto; }
@@ -525,13 +544,18 @@
   @media (max-width:900px) { .p-body { grid-template-columns:1fr; gap:1.25rem; } }
   @media (max-width:780px) {
     .findings,.dist { grid-template-columns:1fr; }
-    .rk { grid-template-columns:1.8rem 1fr 3.2rem; row-gap:.32rem; }
+    .rank { columns:1; }                     /* 좁으면 아래 3칸 배치와 겹쳐 읽기 어렵다 */
+    .rk { grid-template-columns:1.8rem 1fr 3.2rem; row-gap:.3rem; padding:.5rem 0; }
     .rk .track { grid-column:2/4; height:8px; }
     .rk .rel { grid-column:2/4; text-align:left; }
   }
   @media (max-width:640px) {
     body { font-size:16px; }
     .wrap { padding:2.4rem 1.1rem 3.5rem; gap:2.6rem; }
+    .view { gap:2.6rem; }
+    .viewtabs { grid-template-columns:1fr; }
+    .vt { padding:.8rem .95rem; }
+    .vt em { font-size:1.3rem; }
     header h1 { letter-spacing:-.025em; }
     .person>summary { display:flex; flex-wrap:wrap; row-gap:.45rem; padding-left:1.35rem; }
     .p-bar { display:none; }
@@ -582,6 +606,18 @@
       <span class="chip"><b>기록</b>22명</span>
     </div>
   </header>
+
+  <!-- ═══════ 보기 전환 ═══════ -->
+  <div class="viewtabs" role="tablist" aria-label="보기 전환">
+    <button class="vt" type="button" role="tab" id="vt-me" aria-controls="v-me" aria-selected="true">
+      <em>命</em><span><b>내 사주 풀이</b><small>여덟 글자 · 시기 · 처방</small></span>
+    </button>
+    <button class="vt" type="button" role="tab" id="vt-us" aria-controls="v-us" aria-selected="false">
+      <em>合</em><span><b>사람별 궁합</b><small>순위 · 주고받는 균형 · 역할</small></span>
+    </button>
+  </div>
+
+  <div class="view" id="v-me" role="tabpanel" aria-labelledby="vt-me">
 
   <!-- ═══════ 역산 시계 ═══════ -->
   <div class="panel clock">
@@ -843,6 +879,9 @@
       </div>
     </details>
   </section>
+  </div><!-- /v-me -->
+
+  <div class="view" id="v-us" role="tabpanel" aria-labelledby="vt-us" hidden>
 
   <!-- ═══════ 궁합 ═══════ -->
   <section>
@@ -1963,6 +2002,7 @@
       </details>
     </div>
   </section>
+  </div><!-- /v-us -->
 
   <footer>
     <p>이 점수는 여덟 글자가 서로 얼마나 잘 맞물리는지를 본 것이지, 그 관계가 행복한지를 잰 게 아니다. 사주는 “이런 경향이 있다”는 이야기이지 정해진 결말이 아니다.</p>
@@ -2017,7 +2057,8 @@
 </script>
 <script>
   (function () {
-    var list = document.querySelector('[role="tablist"]');
+    /* .tabs로 좁혀 잡는다 — 위쪽 보기 전환도 tablist라 그냥 찾으면 그쪽이 걸린다 */
+    var list = document.querySelector('.tabs[role="tablist"]');
     if (!list) return;
     var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
     var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
@@ -2057,6 +2098,56 @@
     select(0, false);
   })();
 </script>
+<script>
+  /* 보기 전환 — 한 페이지가 9천 픽셀이라 두 벌로 갈라 한 번에 하나만 보여준다.
+     주소의 #앵커가 먼저, 없으면 지난번에 보던 것, 그것도 없으면 사주 풀이. */
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll('.viewtabs [role="tab"]'));
+    if (!tabs.length) return;
+    var views = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+
+    function select(i, scroll) {
+      tabs.forEach(function (t, j) {
+        t.setAttribute('aria-selected', i === j ? 'true' : 'false');
+        t.tabIndex = i === j ? 0 : -1;
+        if (views[j]) views[j].hidden = i !== j;
+      });
+      try { localStorage.setItem('view', tabs[i].id); } catch (e) {}
+      /* 목차는 보이는 뷰만 훑어야 하므로 다시 세우게 알린다 */
+      dispatchEvent(new CustomEvent('viewchange'));
+      if (scroll) scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(i, true); });
+      t.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        var n = (i + d + tabs.length) % tabs.length;
+        select(n, true); tabs[n].focus();
+      });
+    });
+
+    /* 제목 앵커는 아래 목차 스크립트가 붙이는데 그건 이 뒤에 돈다.
+       주소의 #앵커를 여기서 읽어야 하므로 같은 규칙으로 먼저 확보해 둔다. */
+    document.querySelectorAll('.sec-head h2, h3.subhead').forEach(function (h, i) {
+      if (!h.id) h.id = 'h-' + i;
+    });
+
+    var start = 0;
+    if (location.hash.length > 1) {
+      var target = document.getElementById(location.hash.slice(1));
+      views.forEach(function (v, j) { if (v && target && v.contains(target)) start = j; });
+    } else {
+      var saved = null;
+      try { saved = localStorage.getItem('view'); } catch (e) {}
+      var k = tabs.findIndex(function (t) { return t.id === saved; });
+      if (k > -1) start = k;
+    }
+    select(start, false);
+  })();
+</script>
 <div class="progress" aria-hidden="true"><i></i></div>
 
 <nav class="pagenav" id="pagenav" aria-label="문서 위치">
@@ -2073,25 +2164,33 @@
     var btn = nav.querySelector('.pn-btn'), now = nav.querySelector('.pn-now'),
         list = nav.querySelector('.pn-list'), bar = document.querySelector('.progress i');
 
-    var heads = [].slice.call(document.querySelectorAll('.sec-head h2, h3.subhead'));
-    if (!heads.length) { nav.remove(); return; }
+    var all = [].slice.call(document.querySelectorAll('.sec-head h2, h3.subhead'));
+    if (!all.length) { nav.remove(); return; }
+    /* 앵커는 숨은 뷰의 제목에도 미리 붙여 둔다 — 주소로 바로 들어올 수 있어야 한다 */
+    all.forEach(function (h, i) { if (!h.id) h.id = 'h-' + i; });
 
-    var top = document.createElement('li');
-    top.className = 'top';
-    top.innerHTML = '<a href="#">맨 위로</a>';
-    list.appendChild(top);
+    var heads = [], items = [];
+    function build() {
+      list.textContent = '';
+      var top = document.createElement('li');
+      top.className = 'top';
+      top.innerHTML = '<a href="#">맨 위로</a>';
+      list.appendChild(top);
 
-    var items = heads.map(function (h, i) {
-      if (!h.id) h.id = 'h-' + i;
-      /* <small> 보조 문구는 빼고 제목만 — 첫 텍스트 노드가 곧 제목이다 */
-      var t = (h.firstChild && h.firstChild.nodeType === 3 ? h.firstChild.nodeValue : h.textContent).trim();
-      var li = document.createElement('li');
-      if (h.tagName !== 'H2') li.className = 'sub';
-      li.innerHTML = '<a href="#' + h.id + '"></a>';
-      li.firstChild.textContent = t;
-      list.appendChild(li);
-      return li;
-    });
+      heads = all.filter(function (h) { return h.offsetParent !== null || h.getClientRects().length; });
+      items = heads.map(function (h) {
+        /* <small> 보조 문구는 빼고 제목만 — 첫 텍스트 노드가 곧 제목이다 */
+        var t = (h.firstChild && h.firstChild.nodeType === 3 ? h.firstChild.nodeValue : h.textContent).trim();
+        var li = document.createElement('li');
+        if (h.tagName !== 'H2') li.className = 'sub';
+        li.innerHTML = '<a href="#' + h.id + '"></a>';
+        li.firstChild.textContent = t;
+        list.appendChild(li);
+        return li;
+      });
+    }
+    build();
+    addEventListener('viewchange', function () { close(); build(); update(); });
 
     function open()  { nav.classList.add('open');    list.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
     function close() { nav.classList.remove('open'); list.hidden = true;  btn.setAttribute('aria-expanded', 'false'); }
@@ -2111,6 +2210,7 @@
       var max = doc.scrollHeight - doc.clientHeight;
       var y = window.scrollY || doc.scrollTop;
       if (bar) bar.style.width = (max > 0 ? Math.min(100, Math.max(0, y / max * 100)) : 0) + '%';
+      if (!items.length) { nav.classList.remove('on'); return; }
 
       var show = y > 380;
       nav.classList.toggle('on', show);
