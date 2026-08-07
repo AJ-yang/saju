@@ -327,9 +327,26 @@
   .rk .sc { font-family:var(--serif); font-size:1.02rem; text-align:right; color:var(--tone); letter-spacing:-.02em; }
   .rk .rel { font-size:.73rem; color:var(--fg-3); text-align:right; }
 
+  /* ── 세 그림을 한 상자에 ──────────────────── */
+  /* 균형 621 · 산점도 636 · 역할 693 = 1,950px을 나란히 쌓고 있었다.
+     한 번에 하나만 보이면 제일 큰 것 하나 높이로 끝난다. */
+  .gbox { padding:1.35rem 1.4rem 1.4rem; display:flex; flex-direction:column; gap:1rem; }
+  .gbox>h3 { font-size:1.08rem; font-weight:650; letter-spacing:-.02em; }
+  .gbox>.cap { font-size:.86rem; color:var(--fg-3); margin-top:-.55rem; line-height:1.6; }
+  .gtabs { display:flex; gap:.4rem; flex-wrap:wrap; border-bottom:2px solid var(--rule); padding-bottom:.6rem; }
+  .gtab { font-family:var(--sans); font-size:.88rem; font-weight:650; letter-spacing:-.015em; padding:.46rem .9rem;
+          border-radius:4px; cursor:pointer; border:1px solid var(--rule); background:transparent; color:var(--fg-3);
+          transition:background .12s, color .12s; }
+  .gtab:hover { color:var(--fg); background:var(--surface-2); }
+  .gtab[aria-selected="true"] { background:var(--cheong); border-color:var(--cheong); color:var(--ground); box-shadow:var(--shadow-1); }
+  .gpanel { display:flex; flex-direction:column; gap:.9rem; min-width:0; }
+  .gpanel[hidden] { display:none; }   /* display 선언이 hidden 속성을 덮으므로 반드시 필요 */
+  .gcap { font-size:.9rem; color:var(--fg-2); line-height:1.68; }
+  .gp-chart { overflow-x:auto; }
+
   /* ── 분포도 ───────────────────────────────── */
   .chart-box { padding:1.5rem 1.2rem 1.15rem; overflow-x:auto; }
-  .chart-box svg { display:block; width:100%; min-width:720px; height:auto; }
+  .chart-box svg,.gp-chart svg { display:block; width:100%; min-width:720px; height:auto; }
   .legend { display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:.4rem; padding-top:.9rem; border-top:1px solid var(--rule-soft); }
   .legend span { display:flex; align-items:center; gap:.55rem; font-size:.87rem; color:var(--fg-2); }
   .legend i { width:20px; height:3px; display:block; border-radius:2px; flex:none; }
@@ -950,10 +967,17 @@
       </div>
     </div>
 
-    <details class="panel" open>
-      <summary>주고받는 균형 <span class="sum-note">점이 붙어 있고 오른쪽일수록 좋다</span></summary>
-      <div class="det-body" style="padding-bottom:0;border:none"><p style="font-size:.93rem;color:var(--fg-2);line-height:1.65">두 점을 이은 선이 곧 격차다. <strong>점이 붙어 있을수록 고르고, 오른쪽에 있을수록 실제로 주고받는 게 많다.</strong> <span class="gl">(차이가 작아도 두 점이 왼쪽에 몰려 있으면 균형이 좋은 게 아니라 <strong>서로 얻는 게 없다</strong>는 뜻이다 — 그런 경우 점수를 붉게 표시했다)</span></p></div>
-      <div class="det-body">
+    <div class="panel gbox">
+      <h3>같은 사람을 다르게 보기</h3>
+      <p class="cap">점수 하나로는 안 보이는 것들이다. <strong>세 가지를 한 자리에서 갈아 가며 본다</strong> — 주고받는 균형은 한쪽만 이득인지, 처음과 오래는 시간이 내 편인지, 역할 배치는 어떤 일에 누구를 부르면 되는지를 답한다.</p>
+      <div class="gtabs" role="tablist" aria-label="보는 방식">
+        <button class="gtab" type="button" role="tab" id="g-bal"  aria-controls="gp-bal"  aria-selected="true">주고받는 균형</button>
+        <button class="gtab" type="button" role="tab" id="g-scat" aria-controls="gp-scat" aria-selected="false">처음과 오래</button>
+        <button class="gtab" type="button" role="tab" id="g-role" aria-controls="gp-role" aria-selected="false">역할 배치</button>
+      </div>
+
+      <div class="gpanel" id="gp-bal" role="tabpanel" aria-labelledby="g-bal">
+        <p class="gcap">두 점을 이은 선이 곧 격차다. <strong>점이 붙어 있을수록 고르고, 오른쪽에 있을수록 실제로 주고받는 게 많다.</strong> <span class="gl">(차이가 작아도 두 점이 왼쪽에 몰려 있으면 균형이 좋은 게 아니라 <strong>서로 얻는 게 없다</strong>는 뜻이다 — 그런 경우 점수를 붉게 표시했다)</span></p>
       <div class="db">
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">양대영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:40%;width:8%"></i><b class="dbme" style="left:40%"></b><b class="dbthem" style="left:48%"></b></span><span class="dbval low">40 · 48</span><span class="dbgap">−8</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">배주영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:25%;width:5%"></i><b class="dbme" style="left:25%"></b><b class="dbthem" style="left:30%"></b></span><span class="dbval low">25 · 30</span><span class="dbgap">−5</span></div>
@@ -980,9 +1004,9 @@
         <div class="dblegend"><span><i class="f"></i>내가 얻는 것</span><span><i class="h"></i>상대가 얻는 것</span><span><i class="l" style="background:var(--cheong)"></i>차이 20 이하</span><span><i class="l" style="background:var(--hwang)"></i>21–40</span><span><i class="l" style="background:var(--ju)"></i>41 이상</span><span><i class="tick"></i>눈금은 왼쪽부터 25 · 50 · 75</span><span><i class="num"></i>숫자는 나 · 상대, 그 뒤가 차이</span></div>
       </div>
       </div>
-    </details>
 
-    <div class="panel chart-box">
+      <div class="gpanel gp-chart" id="gp-scat" role="tabpanel" aria-labelledby="g-scat" hidden>
+        <p class="gcap">가로는 <strong>처음 끌리는 정도</strong>, 세로는 <strong>오래 갈 가능성</strong>이다. 점선 대각선 위에 있으면 시간이 갈수록 좋아지는 관계다.</p>
       <svg viewBox="0 0 760 455" role="img" aria-label="가로는 처음 끌리는 정도, 세로는 오래 갈 가능성. 점선 대각선 위에 있으면 시간이 갈수록 좋아지는 관계다. 기록된 사람이 모두 찍혀 있다.">
           <line x1="100" y1="335.3" x2="700" y2="335.3" stroke="var(--rule-soft)" stroke-width="1" stroke-dasharray="1 5" opacity=".65"/>
           <line x1="100" y1="241.9" x2="700" y2="241.9" stroke="var(--rule-soft)" stroke-width="1" stroke-dasharray="1 5" opacity=".65"/>
@@ -1051,10 +1075,9 @@
         <span><i style="background:var(--hwang)"></i>50–69점</span>
         <span><i style="background:var(--ju)"></i>50점 미만</span>
       </div>
-    </div>
+      </div>
 
-    <div class="panel dist-box">
-      <h3>역할로 다시 묶기</h3>
+      <div class="gpanel" id="gp-role" role="tabpanel" aria-labelledby="g-role" hidden>
       <p class="cap">같은 사람들을 점수 순위가 아니라 <strong>내게 비어 있는 칸을 누가 채워주는지</strong>로 다시 묶은 것이다. 각자의 여덟 글자에서 <strong>그 기운이 25% 이상인 사람</strong>을 넣었고, 한 사람이 여러 줄에 들어갈 수 있다. 태어난 시각을 몰라 여섯 글자로 계산한 사람은 비율이 16.7씩 움직인다.</p>
       <div class="rolerows">
 
@@ -1088,6 +1111,7 @@
 
       </div>
       <p class="roles-use"><strong>쓰는 법.</strong> 궁합 점수는 “그 관계 전체가 어떤가”이고, 이 표는 “어떤 일에 누구를 부르면 되는가”다. <strong>다른 질문에 답하는 표라서 순서가 어긋나는 게 정상이다</strong> — 총점이 낮은 사람이 특정 역할에서는 두껍게 들어오기도 한다. 막혀서 안 움직일 때는 첫 줄에, 만들어 놓고 못 낼 때는 둘째 줄에, 돈·계약이 걸린 판단에는 셋째 줄에 연락한다. 마지막 줄은 <strong>피할 사람 목록이 아니라 답을 구하지 않을 자리</strong>다 — 편하게 지내되, 여기서 방향을 물으면 이미 굳은 쪽이 더 굳는다.</p>
+      </div>
     </div>
 
     <h3 class="subhead">관계 유형별로 보기</h3>
@@ -2084,8 +2108,39 @@
   })();
 </script>
 <script>
+  /* 「같은 사람을 다르게 보기」 세 그림 전환 */
   (function () {
-    /* .tabs로 좁혀 잡는다 — 위쪽 보기 전환도 tablist라 그냥 찾으면 그쪽이 걸린다 */
+    var list = document.querySelector('.gtabs[role="tablist"]');
+    if (!list) return;
+    var tabs = [].slice.call(list.querySelectorAll('[role="tab"]'));
+    var panes = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+
+    function select(i, focus) {
+      tabs.forEach(function (t, j) {
+        t.setAttribute('aria-selected', i === j ? 'true' : 'false');
+        t.tabIndex = i === j ? 0 : -1;
+        if (panes[j]) panes[j].hidden = i !== j;
+      });
+      if (focus) tabs[i].focus();
+    }
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(i, false); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'Home') { e.preventDefault(); return select(0, true); }
+        if (e.key === 'End') { e.preventDefault(); return select(tabs.length - 1, true); }
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        select((i + d + tabs.length) % tabs.length, true);
+      });
+    });
+    select(0, false);
+  })();
+</script>
+<script>
+  (function () {
+    /* .tabs로 좁혀 잡는다 — 보기 전환과 그림 전환도 tablist라 그냥 찾으면 그쪽이 걸린다 */
     var list = document.querySelector('.tabs[role="tablist"]');
     if (!list) return;
     var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
