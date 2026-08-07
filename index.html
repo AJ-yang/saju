@@ -354,11 +354,18 @@
   .fk.hi { color:var(--ju); }
   .fk.mid { color:var(--hwang); }
   .fk.none { color:var(--cheong); font-weight:500; }
-  .flegend { margin-top:.9rem; }
-  .flegend i { width:13px; height:13px; border-radius:2px; }
-  .flegend i.hi { background:var(--ju); }
-  .flegend i.mid { background:var(--hwang); }
-  .flegend i.lo { background:var(--fg-3); }   /* surface-3은 배경에 묻힌다 */
+  /* 종류마다 무슨 뜻이고 얼마나 무겁게 세는지를 판 안에서 바로 읽히게 한다 */
+  .fkey { margin-top:1rem; padding-top:.95rem; border-top:1px solid var(--rule-soft);
+          display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr)); gap:0 1.8rem; }
+  .fkrow { display:grid; grid-template-columns:.55rem 5.4rem 1fr 2.4rem; gap:.55rem; align-items:baseline;
+           padding:.42rem 0; border-bottom:1px solid var(--rule-soft); font-size:.83rem; }
+  .fkrow::before { content:""; width:.55rem; height:.55rem; border-radius:2px; background:var(--tone); align-self:center; }
+  .fkrow.hi { --tone:var(--ju); } .fkrow.mid { --tone:var(--hwang); } .fkrow.lo { --tone:var(--fg-3); }
+  .fkname { font-weight:650; color:var(--fg); white-space:nowrap; }
+  .fkname em { font-style:normal; font-family:var(--serif); font-size:.88em; color:var(--fg-3); margin-left:.22em; }
+  .fkdesc { color:var(--fg-2); line-height:1.6; }
+  .fkw { font-family:var(--mono); font-size:.77rem; font-weight:600; color:var(--tone); text-align:right; white-space:nowrap; }
+  .fknote { margin-top:.9rem; font-size:.84rem; color:var(--fg-2); line-height:1.68; }
 
   /* ── 분포도 ───────────────────────────────── */
   .chart-box { padding:1.5rem 1.2rem 1.15rem; overflow-x:auto; }
@@ -595,6 +602,8 @@
     .p-score { font-size:1.45rem; margin-left:auto; }
     .person>summary::after { margin-left:.5rem; }
     .db,.fricrows { columns:1; }
+    .fkrow { grid-template-columns:.55rem 1fr 2.4rem; row-gap:.15rem; }
+    .fkdesc { grid-column:2/4; }
     .dbrow { grid-template-columns:4.2rem 1fr 2.8rem; padding:.42rem 0; }
     .dbval { display:none; }
     .scale-bar { grid-template-columns:1fr; }
@@ -1037,7 +1046,8 @@
           <div class="frow" style="--tone:var(--ju)"><span class="fname">박정원</span><span class="ftrack"><i style="width:28%"></i></span><span class="fsc">28</span><span class="fkinds"><span class="fk hi">충돌<i>2</i></span><span class="fk mid">거슬림<i>4</i></span><span class="fk lo">깨짐<i>2</i></span></span></div>
           <div class="frow" style="--tone:var(--ju)"><span class="fname">장현지</span><span class="ftrack"><i style="width:28%"></i></span><span class="fsc">28</span><span class="fkinds"><span class="fk hi">충돌<i>1</i></span><span class="fk hi">엇갈림<i>1</i></span><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">방해<i>3</i></span><span class="fk lo">닮은꼴<i>1</i></span></span></div>
         </div>
-        <div class="legend flegend"><span><i class="hi"></i>정면 충돌 · 엇갈림 — 같은 자리에서 반복해 걸린다</span><span><i class="mid"></i>거슬림 — 이유를 대기 어려운데 자꾸 밉다</span><span><i class="lo"></i>깨짐 · 방해 · 닮은꼴 — 티는 안 나는데 쌓인다</span></div>
+        <div class="fkey"><div class="fkrow hi"><span class="fkname">정면 충돌<em>沖</em></span><span class="fkdesc">정반대 글자가 맞부딪힌다. 늘 같은 주제로 반복해서 싸운다.</span><span class="fkw">×2.0</span></div><div class="fkrow hi"><span class="fkname">엇갈림<em>刑</em></span><span class="fkdesc">서로 발목을 잡는 긴장. 도우려다 오히려 방해가 된다.</span><span class="fkw">×1.5</span></div><div class="fkrow mid"><span class="fkname">거슬림<em>怨嗔</em></span><span class="fkdesc">이유를 대기 어려운데 자꾸 밉다. 가까워질수록 심해진다.</span><span class="fkw">×1.2</span></div><div class="fkrow lo"><span class="fkname">깨짐<em>破</em></span><span class="fkdesc">잘 되어 가던 일이 어그러진다.</span><span class="fkw">×1.0</span></div><div class="fkrow lo"><span class="fkname">방해<em>害</em></span><span class="fkdesc">티는 안 나는데 손해가 조금씩 쌓인다.</span><span class="fkw">×1.0</span></div><div class="fkrow lo"><span class="fkname">닮은꼴<em>自刑</em></span><span class="fkdesc">같은 글자끼리 맞물려 스스로 지친다.</span><span class="fkw">×1.0</span></div></div>
+        <p class="fknote">무게는 <strong>가중 겹수</strong>를 낼 때 곱하는 값이다 — 겹수를 그냥 더하지 않고 종류마다 다르게 센다는 뜻이다. <strong>태어난 날끼리 · 태어난 시각끼리 부딪히면 여기에 한 번 더 곱한다</strong><span class="gl">(그 두 자리가 가장 가까이 닿는 자리라서다)</span>. 그래서 같은 겹수라도 어디서 어떤 종류로 걸리느냐에 따라 점수가 크게 갈린다.</p>
       </div>
 
       <div class="gpanel gp-chart" id="gp-scat" role="tabpanel" aria-labelledby="g-scat" hidden>
@@ -2356,6 +2366,7 @@
       <div class="term"><dt>엇갈림<em>刑</em></dt><dd>서로 발목을 잡는 긴장. 도우려다 오히려 방해가 된다.</dd></div>
       <div class="term"><dt>깨짐<em>破</em></dt><dd>잘 되어 가던 일이 어그러진다.</dd></div>
       <div class="term"><dt>은근한 방해<em>害</em></dt><dd>티는 안 나는데 손해가 조금씩 쌓인다.</dd></div>
+      <div class="term"><dt>닮은꼴<em>自刑</em></dt><dd>같은 글자끼리 맞물린다. 성향이 너무 닮아 서로를 밀어내지 못하고 스스로 지친다.</dd></div>
     </dl>
     <h3>사주 기본 용어 <small>여덟 글자를 읽는 법</small></h3>
     <dl class="terms">
