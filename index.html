@@ -115,9 +115,17 @@
   .vt span { display:flex; flex-direction:column; gap:.1rem; min-width:0; }
   .vt b { font-size:1.02rem; font-weight:700; letter-spacing:-.022em; color:var(--fg-2); }
   .vt small { font-size:.81rem; color:var(--fg-3); line-height:1.45; }
-  .vt[aria-selected="true"] { background:var(--tint); border-color:var(--cheong); box-shadow:var(--shadow-2); }
+  /* 고른 쪽이 확실히 앞으로 나와야 지금 어느 쪽을 보는지 한눈에 안다 */
+  .vt[aria-selected="true"] { background:var(--tint); border-color:var(--cheong); box-shadow:var(--shadow-2);
+                              position:relative; overflow:hidden; }
+  .vt[aria-selected="true"]::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--cheong); }
+  .vt[aria-selected="true"] { padding-left:1.35rem; }
   .vt[aria-selected="true"] em,.vt[aria-selected="true"] b { color:var(--cheong); }
   .vt[aria-selected="true"] small { color:var(--fg-2); }
+  .vt[aria-selected="true"] b::after { content:"보는 중"; margin-left:.5rem; font-family:var(--mono); font-size:.66rem;
+                                       font-weight:600; letter-spacing:.04em; color:var(--ground); background:var(--cheong);
+                                       padding:.14rem .38rem; border-radius:2px; vertical-align:.12em; }
+  .vt[aria-selected="false"] { background:transparent; box-shadow:none; border-style:dashed; }
 
   /* ── 섹션 ─────────────────────────────────── */
   section { display:flex; flex-direction:column; gap:1.3rem; }
@@ -327,37 +335,37 @@
   .legend i { width:20px; height:3px; display:block; border-radius:2px; flex:none; }
 
   /* ── 주고받는 균형 (덤벨) ─────────────────── */
-  .db { display:flex; flex-direction:column; }
-  .dbhead { display:grid; grid-template-columns:4.6rem 1fr 4.2rem 2.8rem; gap:.7rem; align-items:end; padding-bottom:.45rem;
-            border-bottom:1px solid var(--rule); margin-bottom:.2rem; }
-  .dbhead .sc { position:relative; height:1.1rem; }
-  .dbhead .sc b { position:absolute; transform:translateX(-50%); font-family:var(--mono); font-size:.73rem;
-                  font-weight:500; color:var(--fg-3); }
-  .dbhead .r { text-align:right; font-family:var(--mono); font-size:.73rem; letter-spacing:.06em; color:var(--fg-3); font-weight:500; }
-  .dbrow { display:grid; grid-template-columns:4.6rem 1fr 4.2rem 2.8rem; gap:.7rem; align-items:center;
-           padding:.5rem 0; border-bottom:1px solid var(--rule-soft); }
-  .dbrow:last-child { border-bottom:none; }
-  .dbname { font-size:.89rem; font-weight:650; letter-spacing:-.015em; }
-  .dbtrack { position:relative; height:18px; }
-  .dbtrack::before { content:""; position:absolute; left:0; right:0; top:8px; height:2px; background:var(--surface-2); border-radius:1px; }
+  /* 22줄을 한 줄씩 쌓으면 1,170px. 순위와 같은 방식으로 여러 단에 흘린다.
+     눈금 머리글(0·25·50·75·100)은 단이 갈리면 자리가 안 맞으므로 걷어내고,
+     줄마다 이미 있는 25·50·75 눈금선과 범례 설명으로 대신한다. */
+  .db { columns:2 20rem; column-gap:1.9rem; }
+  .dbrow { display:grid; grid-template-columns:3.8rem 1fr 3.3rem 2.1rem; gap:.55rem; align-items:center;
+           padding:.28rem 0; border-bottom:1px solid var(--rule-soft); break-inside:avoid; }
+  .dbname { font-size:.85rem; font-weight:650; letter-spacing:-.02em; white-space:nowrap; }
+  .dbtrack { position:relative; height:15px; }
+  .dbtrack::before { content:""; position:absolute; left:0; right:0; top:7px; height:2px; background:var(--surface-2); border-radius:1px; }
   .dbtrack .g25,.dbtrack .g50,.dbtrack .g75 { position:absolute; top:1px; bottom:1px; width:1px; background:var(--rule-soft); }
   .dbtrack .g25 { left:25%; }
   .dbtrack .g50 { left:50%; background:var(--rule); }
   .dbtrack .g75 { left:75%; }
-  .dbline { position:absolute; top:7px; height:4px; border-radius:2px; background:var(--tone); }
-  .dbme,.dbthem { position:absolute; top:2px; width:14px; height:14px; border-radius:50%; margin-left:-7px; z-index:2; }
+  .dbline { position:absolute; top:6.5px; height:3px; border-radius:2px; background:var(--tone); }
+  .dbme,.dbthem { position:absolute; top:2px; width:11px; height:11px; border-radius:50%; margin-left:-5.5px; z-index:2; }
   .dbme { background:var(--cheong); }
-  .dbthem { background:var(--surface); box-shadow:inset 0 0 0 3px var(--cheong); }
-  .dbval { font-family:var(--mono); font-size:.81rem; color:var(--fg-2); text-align:right; }
+  .dbthem { background:var(--surface); box-shadow:inset 0 0 0 2.5px var(--cheong); }
+  .dbval { font-family:var(--mono); font-size:.76rem; color:var(--fg-2); text-align:right; }
   .dbval.low { color:var(--ju); font-weight:650; }
-  .dbgap { font-family:var(--mono); font-size:.9rem; font-weight:700; color:var(--tone); text-align:right; }
-  .dblegend { display:flex; flex-wrap:wrap; gap:1.2rem; margin-top:1rem; padding-top:.9rem;
+  .dbgap { font-family:var(--mono); font-size:.83rem; font-weight:700; color:var(--tone); text-align:right; }
+  .dblegend { column-span:all; display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; margin-top:1rem; padding-top:.9rem;
               border-top:1px solid var(--rule-soft); font-size:.85rem; color:var(--fg-2); }
   .dblegend span { display:flex; align-items:center; gap:.5rem; }
-  .dblegend i { width:14px; height:14px; border-radius:50%; flex:none; }
+  .dblegend i { width:13px; height:13px; border-radius:50%; flex:none; }
   .dblegend i.f { background:var(--cheong); }
-  .dblegend i.h { background:var(--surface); box-shadow:inset 0 0 0 3px var(--cheong); }
+  .dblegend i.h { background:var(--surface); box-shadow:inset 0 0 0 2.5px var(--cheong); }
   .dblegend i.l { width:20px; height:4px; border-radius:2px; }
+  .dblegend i.tick { width:14px; height:12px; border-radius:0; border-left:1px solid var(--rule-soft);
+                     border-right:1px solid var(--rule-soft); background:linear-gradient(var(--rule),var(--rule)) center/1px 100% no-repeat; }
+  .dblegend i.num { width:auto; height:auto; border-radius:0; font-family:var(--mono); font-size:.76rem; color:var(--fg-3); }
+  .dblegend i.num::before { content:"62 · 58  4"; }
 
   /* ── 해석 기준 ────────────────────────────── */
   .scale-bar { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
@@ -535,7 +543,18 @@
             font-family:var(--sans); font-size:.85rem; font-weight:650; letter-spacing:-.015em; line-height:1;
             cursor:pointer; box-shadow:var(--shadow-1); max-width:min(18rem,52vw); }
   .pn-btn:hover { background:var(--surface-2); color:var(--fg); }
+  /* 알약에 보기 표식을 달아 둔다 — 스크롤을 내려도 어느 쪽을 보는지 알 수 있어야 한다 */
+  .pn-mark { flex:none; font-family:var(--serif); font-size:1.05rem; line-height:1; color:var(--cheong);
+             background:var(--tint); border-radius:3px; padding:.24rem .3rem; }
   .pn-now { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pn-list li.views { display:grid; grid-template-columns:1fr 1fr; gap:.3rem; margin-bottom:.35rem;
+                      padding-bottom:.4rem; border-bottom:1px solid var(--rule-soft); }
+  .pn-view { display:flex; align-items:center; gap:.4rem; padding:.42rem .5rem; border-radius:3px; cursor:pointer;
+             border:1px dashed var(--rule); background:transparent; color:var(--fg-3);
+             font-family:var(--sans); font-size:.82rem; font-weight:650; letter-spacing:-.02em; }
+  .pn-view:hover { background:var(--surface-2); color:var(--fg); }
+  .pn-view em { font-style:normal; font-family:var(--serif); font-size:1rem; line-height:1; }
+  .pn-view.on { background:var(--tint); border-style:solid; border-color:var(--cheong); color:var(--cheong); }
   .pn-btn::after { content:""; flex:none; width:.4rem; height:.4rem; border-right:2px solid var(--fg-3);
                    border-bottom:2px solid var(--fg-3); transform:rotate(45deg) translateY(-2px); transition:transform .18s ease; }
   .pagenav.open .pn-btn::after { transform:rotate(-135deg) translateY(-1px); }
@@ -570,7 +589,8 @@
     .p-bar { display:none; }
     .p-score { font-size:1.45rem; margin-left:auto; }
     .person>summary::after { margin-left:.5rem; }
-    .dbhead,.dbrow { grid-template-columns:4.2rem 1fr 2.8rem; }
+    .db { columns:1; }
+    .dbrow { grid-template-columns:4.2rem 1fr 2.8rem; padding:.42rem 0; }
     .dbval { display:none; }
     .scale-bar { grid-template-columns:1fr; }
     .band { flex-direction:row; align-items:baseline; gap:.85rem; }
@@ -935,7 +955,6 @@
       <div class="det-body" style="padding-bottom:0;border:none"><p style="font-size:.93rem;color:var(--fg-2);line-height:1.65">두 점을 이은 선이 곧 격차다. <strong>점이 붙어 있을수록 고르고, 오른쪽에 있을수록 실제로 주고받는 게 많다.</strong> <span class="gl">(차이가 작아도 두 점이 왼쪽에 몰려 있으면 균형이 좋은 게 아니라 <strong>서로 얻는 게 없다</strong>는 뜻이다 — 그런 경우 점수를 붉게 표시했다)</span></p></div>
       <div class="det-body">
       <div class="db">
-        <div class="dbhead"><span></span><span class="sc"><b style="left:0">0</b><b style="left:25%">25</b><b style="left:50%">50</b><b style="left:75%">75</b><b style="left:100%">100</b></span><span class="r">나 · 상대</span><span class="r">차이</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">양대영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:40%;width:8%"></i><b class="dbme" style="left:40%"></b><b class="dbthem" style="left:48%"></b></span><span class="dbval low">40 · 48</span><span class="dbgap">−8</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">배주영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:25%;width:5%"></i><b class="dbme" style="left:25%"></b><b class="dbthem" style="left:30%"></b></span><span class="dbval low">25 · 30</span><span class="dbgap">−5</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">최윤성</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:68%;width:4%"></i><b class="dbme" style="left:68%"></b><b class="dbthem" style="left:72%"></b></span><span class="dbval">68 · 72</span><span class="dbgap">−4</span></div>
@@ -958,7 +977,7 @@
         <div class="dbrow" style="--tone:var(--hwang)"><span class="dbname">신고훈</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:25%;width:40%"></i><b class="dbme" style="left:65%"></b><b class="dbthem" style="left:25%"></b></span><span class="dbval">65 · 25</span><span class="dbgap">40</span></div>
         <div class="dbrow" style="--tone:var(--ju)"><span class="dbname">김근영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:25%;width:65%"></i><b class="dbme" style="left:90%"></b><b class="dbthem" style="left:25%"></b></span><span class="dbval">90 · 25</span><span class="dbgap">65</span></div>
         <div class="dbrow" style="--tone:var(--ju)"><span class="dbname">문지윤</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:12%;width:83%"></i><b class="dbme" style="left:95%"></b><b class="dbthem" style="left:12%"></b></span><span class="dbval">95 · 12</span><span class="dbgap">83</span></div>
-        <div class="dblegend"><span><i class="f"></i>내가 얻는 것</span><span><i class="h"></i>상대가 얻는 것</span><span><i class="l" style="background:var(--cheong)"></i>차이 20 이하</span><span><i class="l" style="background:var(--hwang)"></i>21–40</span><span><i class="l" style="background:var(--ju)"></i>41 이상</span></div>
+        <div class="dblegend"><span><i class="f"></i>내가 얻는 것</span><span><i class="h"></i>상대가 얻는 것</span><span><i class="l" style="background:var(--cheong)"></i>차이 20 이하</span><span><i class="l" style="background:var(--hwang)"></i>21–40</span><span><i class="l" style="background:var(--ju)"></i>41 이상</span><span><i class="tick"></i>눈금은 왼쪽부터 25 · 50 · 75</span><span><i class="num"></i>숫자는 나 · 상대, 그 뒤가 차이</span></div>
       </div>
       </div>
     </details>
@@ -2114,6 +2133,7 @@
     var tabs = [].slice.call(document.querySelectorAll('.viewtabs [role="tab"]'));
     if (!tabs.length) return;
     var views = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    var base = (document.title.split(' — ')[0] || document.title).trim();
 
     function select(i, scroll) {
       tabs.forEach(function (t, j) {
@@ -2122,9 +2142,12 @@
         if (views[j]) views[j].hidden = i !== j;
       });
       try { localStorage.setItem('view', tabs[i].id); } catch (e) {}
+      /* 탭 제목에도 남긴다 — 창을 여럿 띄워 두면 이게 제일 빠른 단서다 */
+      document.title = base + ' — ' + tabs[i].querySelector('b').textContent;
       /* 목차는 보이는 뷰만 훑어야 하므로 다시 세우게 알린다 */
       dispatchEvent(new CustomEvent('viewchange'));
-      if (scroll) scrollTo({ top: 0, behavior: 'auto' });
+      /* 'auto'는 CSS의 scroll-behavior:smooth를 따라가 수천 픽셀을 훑고 내려온다 */
+      if (scroll) scrollTo({ top: 0, behavior: 'instant' });
     }
 
     tabs.forEach(function (t, i) {
@@ -2160,7 +2183,7 @@
 <div class="progress" aria-hidden="true"><i></i></div>
 
 <nav class="pagenav" id="pagenav" aria-label="문서 위치">
-  <button class="pn-btn" type="button" aria-expanded="false" aria-controls="pn-list"><span class="pn-now"></span></button>
+  <button class="pn-btn" type="button" aria-expanded="false" aria-controls="pn-list"><span class="pn-mark" aria-hidden="true"></span><span class="pn-now"></span></button>
   <ul class="pn-list" id="pn-list" hidden></ul>
 </nav>
 
@@ -2178,9 +2201,32 @@
     /* 앵커는 숨은 뷰의 제목에도 미리 붙여 둔다 — 주소로 바로 들어올 수 있어야 한다 */
     all.forEach(function (h, i) { if (!h.id) h.id = 'h-' + i; });
 
+    var mark = nav.querySelector('.pn-mark');
     var heads = [], items = [];
     function build() {
       list.textContent = '';
+
+      /* 보기 전환을 목록 맨 위에 둔다 — 어디까지 내려가 있든 위로 안 올라가고 갈아탄다.
+         위쪽 전환기를 그대로 눌러 주므로 전환 규칙이 한 곳에만 있다. */
+      var vtabs = [].slice.call(document.querySelectorAll('.viewtabs [role="tab"]'));
+      if (vtabs.length) {
+        var vli = document.createElement('li');
+        vli.className = 'views';
+        vtabs.forEach(function (t) {
+          var on = t.getAttribute('aria-selected') === 'true';
+          var vb = document.createElement('button');
+          vb.type = 'button';
+          vb.className = 'pn-view' + (on ? ' on' : '');
+          vb.innerHTML = '<em></em><span></span>';
+          vb.querySelector('em').textContent = t.querySelector('em').textContent;
+          vb.querySelector('span').textContent = t.querySelector('b').textContent;
+          vb.addEventListener('click', function (e) { e.stopPropagation(); t.click(); });
+          vli.appendChild(vb);
+          if (on && mark) mark.textContent = t.querySelector('em').textContent;
+        });
+        list.appendChild(vli);
+      }
+
       var top = document.createElement('li');
       top.className = 'top';
       top.innerHTML = '<a href="#">맨 위로</a>';
