@@ -548,35 +548,6 @@
   .progress { position:absolute; left:0; right:0; bottom:-1px; height:2px; pointer-events:none; }
   .progress i { display:block; height:100%; width:0; background:var(--cheong); }
 
-  .pagenav { position:relative; flex:none; }
-  .pn-btn { display:flex; align-items:center; gap:.45rem; height:2.3rem; padding:0 .7rem;
-            border-radius:1.15rem; border:1px solid var(--rule); background:transparent; color:var(--fg-3);
-            font-family:var(--sans); font-size:.83rem; font-weight:650; letter-spacing:-.015em; line-height:1;
-            cursor:pointer; max-width:min(14rem,30vw); }
-  .pn-btn:hover { background:var(--surface-2); color:var(--fg); }
-  .pn-now { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .pn-list li.views { display:grid; grid-template-columns:1fr 1fr; gap:.3rem; margin-bottom:.35rem;
-                      padding-bottom:.4rem; border-bottom:1px solid var(--rule-soft); }
-  .pn-view { display:flex; align-items:center; gap:.4rem; padding:.42rem .5rem; border-radius:3px; cursor:pointer;
-             border:1px dashed var(--rule); background:transparent; color:var(--fg-3);
-             font-family:var(--sans); font-size:.82rem; font-weight:650; letter-spacing:-.02em; }
-  .pn-view:hover { background:var(--surface-2); color:var(--fg); }
-  .pn-view em { font-style:normal; font-family:var(--serif); font-size:1rem; line-height:1; }
-  .pn-view.on { background:var(--tint); border-style:solid; border-color:var(--cheong); color:var(--cheong); }
-  .pn-btn::after { content:""; flex:none; width:.4rem; height:.4rem; border-right:2px solid var(--fg-3);
-                   border-bottom:2px solid var(--fg-3); transform:rotate(45deg) translateY(-2px); transition:transform .18s ease; }
-  .pagenav.open .pn-btn::after { transform:rotate(-135deg) translateY(-1px); }
-  /* 바 안에 있으므로 아래로 떨어뜨린다 — 오른쪽 끝에 맞춰야 화면 밖으로 안 나간다 */
-  .pn-list { position:absolute; top:calc(100% + .45rem); right:0; z-index:60;
-             list-style:none; padding:.35rem; min-width:13.5rem; max-width:min(21rem,74vw);
-             background:var(--surface); border:1px solid var(--rule); border-radius:5px; box-shadow:var(--shadow-2); }
-  .pn-list a { display:block; padding:.42rem .6rem; border-radius:3px; font-size:.87rem; font-weight:650;
-               color:var(--fg-2); text-decoration:none; letter-spacing:-.015em; }
-  .pn-list li.sub a { padding-left:1.55rem; font-size:.84rem; font-weight:400; color:var(--fg-3); }
-  .pn-list a:hover { background:var(--surface-2); color:var(--fg); }
-  .pn-list li.here>a { color:var(--cheong); background:var(--tint); font-weight:700; }
-  .pn-list li.top { border-bottom:1px solid var(--rule-soft); margin-bottom:.25rem; padding-bottom:.25rem; }
-  .pn-list li.top a { font-size:.83rem; font-weight:400; color:var(--fg-3); }
 
   /* ── 반응형 ───────────────────────────────── */
   @media (max-width:900px) { .p-body { grid-template-columns:1fr; gap:1.25rem; } }
@@ -615,10 +586,9 @@
     .vt { padding:.45rem .4rem; gap:.35rem; }
     .vt b { font-size:.86rem; }
     .tools { gap:.3rem; }
-    .termbtn span,.pn-now { display:none; }
-    .termbtn,.pn-btn { height:2.1rem; padding:0 .55rem; }
+    .termbtn span { display:none; }
+    .termbtn { height:2.1rem; padding:0 .55rem; }
     .themetoggle { width:2.1rem; height:2.1rem; }
-    .pn-btn::after { margin-left:0; }
   }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
 
@@ -645,10 +615,6 @@
       </button>
     </div>
     <div class="tools">
-      <nav class="pagenav" id="pagenav" aria-label="문서 위치">
-        <button class="pn-btn" type="button" aria-expanded="false" aria-controls="pn-list" aria-label="이 보기 안의 묶음으로 이동"><span class="pn-now"></span></button>
-        <ul class="pn-list" id="pn-list" hidden></ul>
-      </nav>
       <button class="termbtn" type="button" id="term-open" aria-haspopup="dialog"><em>語</em><span>용어</span></button>
       <button class="themetoggle" type="button" aria-label="밝은 화면과 어두운 화면 전환"><span aria-hidden="true">◐</span></button>
     </div>
@@ -967,10 +933,10 @@
         <div class="rk" style="--tone:var(--hwang)"><span class="pos">15</span><span class="nm"><b>양정수</b><i>쇠</i></span><span class="track"><span class="fill" style="width:53%"></span></span><span class="sc">53</span><span class="rel">가족</span></div>
         <div class="rk" style="--tone:var(--hwang)"><span class="pos">16</span><span class="nm"><b>장현지</b><i>쇠</i></span><span class="track"><span class="fill" style="width:51%"></span></span><span class="sc">51</span><span class="rel">친구</span></div>
         <div class="rk" style="--tone:var(--ju)"><span class="pos">17</span><span class="nm"><b>신고훈</b><i>나무</i></span><span class="track"><span class="fill" style="width:49%"></span></span><span class="sc">49</span><span class="rel">친구</span></div>
-        <div class="rk" style="--tone:var(--ju)"><span class="pos">18</span><span class="nm"><b>김소연</b><i>불</i></span><span class="track"><span class="fill" style="width:46%"></span></span><span class="sc">46</span><span class="rel">친구</span></div>
-        <div class="rk" style="--tone:var(--ju)"><span class="pos">19</span><span class="nm"><b>양대영</b><i>불</i></span><span class="track"><span class="fill" style="width:43%"></span></span><span class="sc">43</span><span class="rel">가족</span></div>
-        <div class="rk" style="--tone:var(--ju)"><span class="pos">20</span><span class="nm"><b>문지윤</b><i>흙</i></span><span class="track"><span class="fill" style="width:42%"></span></span><span class="sc">42</span><span class="rel">연인</span></div>
-        <div class="rk" style="--tone:var(--ju)"><span class="pos">21</span><span class="nm"><b>배주영</b><i>흙</i></span><span class="track"><span class="fill" style="width:39%"></span></span><span class="sc">39</span><span class="rel">친구</span></div>
+        <div class="rk" style="--tone:var(--ju)"><span class="pos">18</span><span class="nm"><b>배주영</b><i>흙</i></span><span class="track"><span class="fill" style="width:47%"></span></span><span class="sc">47</span><span class="rel">친구</span></div>
+        <div class="rk" style="--tone:var(--ju)"><span class="pos">19</span><span class="nm"><b>김소연</b><i>불</i></span><span class="track"><span class="fill" style="width:46%"></span></span><span class="sc">46</span><span class="rel">친구</span></div>
+        <div class="rk" style="--tone:var(--ju)"><span class="pos">20</span><span class="nm"><b>양대영</b><i>불</i></span><span class="track"><span class="fill" style="width:43%"></span></span><span class="sc">43</span><span class="rel">가족</span></div>
+        <div class="rk" style="--tone:var(--ju)"><span class="pos">21</span><span class="nm"><b>문지윤</b><i>흙</i></span><span class="track"><span class="fill" style="width:42%"></span></span><span class="sc">42</span><span class="rel">연인</span></div>
         <div class="rk" style="--tone:var(--ju)"><span class="pos">22</span><span class="nm"><b>김정민</b><i>흙</i></span><span class="track"><span class="fill" style="width:35%"></span></span><span class="sc">35</span><span class="rel">친구</span></div>
       </div>
     </div>
@@ -987,8 +953,8 @@
       <div class="gpanel" id="gp-bal" role="tabpanel" aria-labelledby="g-bal">
         <p class="gcap">두 점을 이은 선이 곧 격차다. <strong>점이 붙어 있을수록 고르고, 오른쪽에 있을수록 실제로 주고받는 게 많다.</strong> <span class="gl">(차이가 작아도 두 점이 왼쪽에 몰려 있으면 균형이 좋은 게 아니라 <strong>서로 얻는 게 없다</strong>는 뜻이다 — 그런 경우 점수를 붉게 표시했다)</span></p>
       <div class="db">
+        <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">배주영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:20%;width:10%"></i><b class="dbme" style="left:20%"></b><b class="dbthem" style="left:30%"></b></span><span class="dbval low">20 · 30</span><span class="dbgap">−10</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">양대영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:40%;width:8%"></i><b class="dbme" style="left:40%"></b><b class="dbthem" style="left:48%"></b></span><span class="dbval low">40 · 48</span><span class="dbgap">−8</span></div>
-        <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">배주영</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:25%;width:5%"></i><b class="dbme" style="left:25%"></b><b class="dbthem" style="left:30%"></b></span><span class="dbval low">25 · 30</span><span class="dbgap">−5</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">최윤성</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:68%;width:4%"></i><b class="dbme" style="left:68%"></b><b class="dbthem" style="left:72%"></b></span><span class="dbval">68 · 72</span><span class="dbgap">−4</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">박정원</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:88%;width:4%"></i><b class="dbme" style="left:88%"></b><b class="dbthem" style="left:92%"></b></span><span class="dbval">88 · 92</span><span class="dbgap">−4</span></div>
         <div class="dbrow" style="--tone:var(--cheong)"><span class="dbname">이은희</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:75%;width:3%"></i><b class="dbme" style="left:75%"></b><b class="dbthem" style="left:78%"></b></span><span class="dbval">75 · 78</span><span class="dbgap">−3</span></div>
@@ -1070,8 +1036,8 @@
           <text x="515.1" y="282.6" text-anchor="end" fill="var(--ju)" font-size="10.0" font-weight="700" stroke="var(--surface)" stroke-width="3.2" paint-order="stroke">고훈<tspan font-size=".86em" font-weight="500" opacity=".82"> 42</tspan></text>
           <circle cx="561.5" cy="288.6" r="4.5" fill="var(--hwang)"/>
           <text x="571.0" y="292.0" text-anchor="start" fill="var(--hwang)" font-size="10.0" font-weight="700" stroke="var(--surface)" stroke-width="3.2" paint-order="stroke">근영<tspan font-size=".86em" font-weight="500" opacity=".82"> 40</tspan></text>
-          <circle cx="266.2" cy="288.6" r="4.5" fill="var(--ju)"/>
-          <text x="275.7" y="292.0" text-anchor="start" fill="var(--ju)" font-size="10.0" font-weight="700" stroke="var(--surface)" stroke-width="3.2" paint-order="stroke">주영<tspan font-size=".86em" font-weight="500" opacity=".82"> 40</tspan></text>
+          <circle cx="238.5" cy="232.6" r="4.5" fill="var(--ju)"/>
+          <text x="248.0" y="236.0" text-anchor="start" fill="var(--ju)" font-size="10.0" font-weight="700" stroke="var(--surface)" stroke-width="3.2" paint-order="stroke">주영<tspan font-size=".86em" font-weight="500" opacity=".82"> 52</tspan></text>
           <circle cx="238.5" cy="325.9" r="4.5" fill="var(--ju)"/>
           <text x="248.0" y="329.3" text-anchor="start" fill="var(--ju)" font-size="10.0" font-weight="700" stroke="var(--surface)" stroke-width="3.2" paint-order="stroke">정민<tspan font-size=".86em" font-weight="500" opacity=".82"> 32</tspan></text>
           <circle cx="635.4" cy="335.3" r="4.5" fill="var(--ju)"/>
@@ -1113,7 +1079,7 @@
         <div class="rrow t-earth">
           <div class="rlab"><b>편하지만 새로 생기는 게 없는 쪽</b><small>흙 · 불 — 이미 넘치는 기운<br>채워주는 세 기운이 전부 25% 미만</small></div>
           <div class="rchips">
-            <span class="rc">배주영<i>83.4</i></span><span class="rc">이제언<i>62.5</i></span><span class="rc">김정민<i>62.5</i></span>
+            <span class="rc">배주영<i>87.5</i></span><span class="rc">이제언<i>62.5</i></span><span class="rc">김정민<i>62.5</i></span>
           </div>
         </div>
 
@@ -1757,7 +1723,49 @@
 
       <details class="panel person" style="--bar:var(--ju)">
         <summary>
-          <span class="p-rank">13</span><span class="p-name">김소연</span><span class="p-ilgan"><em class="fire">丙</em> 불</span>
+          <span class="p-rank">13</span><span class="p-name">배주영</span><span class="p-ilgan"><em class="earth">戊</em> 흙</span>
+          <span class="p-tag">주의 · 서로 빈칸이 같다</span>
+          <span class="p-bar"><i style="width:47%"></i></span><span class="p-score">47</span>
+        </summary>
+        <div class="p-body">
+          <div class="mini">
+            <div class="mp">
+              <span class="l"></span><span class="h">시</span><span class="h">일</span><span class="h">월</span><span class="h">년</span>
+              <span class="l">위</span>
+              <span><span class="g fire">정<b>丁</b></span><span class="t">받쳐줌</span></span>
+              <span class="me"><span class="g earth">무<b>戊</b></span><span class="t">본인</span></span>
+              <span><span class="g earth">기<b>己</b></span><span class="t">동료</span></span>
+              <span><span class="g earth">무<b>戊</b></span><span class="t">동료</span></span>
+              <span class="l">아래</span>
+              <span><span class="g fire">사<b>巳</b></span><span class="t">받쳐줌</span></span>
+              <span><span class="g fire">오<b>午</b></span><span class="t">받쳐줌</span></span>
+              <span><span class="g earth">미<b>未</b></span><span class="t">동료</span></span>
+              <span><span class="g wood">인<b>寅</b></span><span class="t">책임</span></span>
+            </div>
+            <div class="estrip">
+              <div class="e t-wood"><span class="en">나무</span><span class="eb"><span class="ef" style="width:25%"></span></span><span class="ev">12.5</span></div>
+              <div class="e t-fire"><span class="en">불</span><span class="eb"><span class="ef" style="width:75%"></span></span><span class="ev">37.5</span></div>
+              <div class="e t-earth"><span class="en">흙</span><span class="eb"><span class="ef" style="width:100%"></span></span><span class="ev">50</span></div>
+              <div class="e t-metal nil"><span class="en">쇠</span><span class="eb"></span><span class="ev">0</span></div>
+              <div class="e t-water nil"><span class="en">물</span><span class="eb"></span><span class="ev">0</span></div>
+            </div>
+            <div class="pscore"><h5>항목별 점수</h5><div class="ps bad"><span>기운이 오가는가</span><span class="b"><i style="width:35%"></i></span><span class="v">35</span><span class="w">20</span></div><div class="ps bad"><span>내가 얻는 것</span><span class="b"><i style="width:20%"></i></span><span class="v">20</span><span class="w">15</span></div><div class="ps bad"><span>상대가 얻는 것</span><span class="b"><i style="width:30%"></i></span><span class="v">30</span><span class="w">15</span></div><div class="ps mid"><span>일상이 편한가</span><span class="b"><i style="width:58%"></i></span><span class="v">58</span><span class="w">15</span></div><div class="ps good"><span>부딪힘이 적은가</span><span class="b"><i style="width:78%"></i></span><span class="v">78</span><span class="w">20</span></div><div class="ps mid"><span>오래 가는가</span><span class="b"><i style="width:55%"></i></span><span class="v">55</span><span class="w">15</span></div><div class="ps tot bad"><span>합계</span><span class="b"><i style="width:47%"></i></span><span class="v">47</span><span class="w">100</span></div></div>
+          </div>
+          <div class="p-note">
+            <p><strong>태어난 시각이 확인되어 여덟 글자를 모두 채워 다시 계산했다.</strong> 흙이 66.7에서 <strong>50%</strong>로 내려왔지만, 대신 <strong>불이 16.7에서 37.5%로 뛰었다.</strong> 불은 흙을 만드니<span class="gl">(받쳐주는 기운이 그대로 자기 힘으로 쌓인다)</span> 자기 편은 오히려 <strong>87.5%</strong>다 — 판박이까지는 아니어도 여전히 한쪽으로 크게 쏠린 사주다.</p>
+            <p>비어 있는 자리는 그대로다. <strong>쇠 0 · 물 0</strong> — 만들어 내보내는 통로도, 거두는 그릇도 없다. <strong>내 여덟 글자와 정확히 같은 자리가 비었다</strong><span class="gl">(내가 못 채우는 걸 상대도 못 채우고, 상대에게 필요한 걸 나도 안 갖고 있다)</span>.</p>
+            <p>내가 줄 수 있는 건 흙 62.5%와 나무 25%인데, <strong>흙은 이미 넘치는 쪽에 얹히고 나무만 약이 된다</strong> — 얇은 책임 자리 12.5%를 채워주는 것이 이 관계에서 방향이 맞는 유일한 부분이다.</p>
+            <p>시각이 채워지면서 <strong>“일상이 편한가”를 처음 계산했다.</strong> 상대의 巳와 내 辰은 부딪히는 짝이 아니다 — 가까이 있어도 걸리는 자리가 없다. 다만 巳는 불이라 이미 과한 내 흙을 더 키우는 방향이어서 58점에서 멈춘다.</p>
+            <p>부딪힘은 두껍게 좋은 쪽이다. 마찰은 <strong>내 卯 둘과 상대의 午가 깨지는 짝을 두 겹</strong> 만드는 게 전부고, 붙는 힘이 그보다 두껍다 — <strong>卯未가 나무로 반쯤 뭉치고</strong>(두 겹) <strong>午未가 끌어당기며</strong>, 상대의 寅이 내 卯·辰과 만나 <strong>나무 덩어리를 완성</strong>시킨다. 나무는 내게 가장 필요한 기운이다. <span class="gl">(겹수로 매기면 74점인데, 합이 마찰보다 두껍고 정면으로 부딪히거나 발목 잡는 짝이 한 겹도 없어 78로 올렸다.)</span></p>
+            <p><strong>어떻게 지내면 되나.</strong> <strong>편한 사이로 두되, 나무 쪽으로만 손을 내밀면 된다.</strong> 싸울 일이 거의 없다는 건 실제로 큰 장점이다. 다만 서로 없는 것이 똑같아서 <strong>새로운 관점이나 자극을 기대하면 계속 아쉽다</strong> — 조언하고 챙겨주는 행동은 둘 다 넘치는 흙이라 서로에게 무게만 된다. 대신 <strong>마감이 걸린 일에 같이 이름을 올리는 것</strong>은 내 나무가 상대의 얇은 자리를 채우는 방향이라, 이 관계에서 유일하게 남는 게 생기는 자리다.</p>
+            <div class="facts"><span class="fact good">시각 확인 · 여덟 글자로 재채점</span><span class="fact good">부딪힘은 깨짐 두 겹뿐</span><span class="fact good">상대의 寅이 내 나무를 완성</span><span class="fact bad">쇠 0 · 물 0 — 빈칸이 나와 같다</span><span class="fact bad">흙+불 87.5%가 내 과잉을 키움</span></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="panel person" style="--bar:var(--ju)">
+        <summary>
+          <span class="p-rank">14</span><span class="p-name">김소연</span><span class="p-ilgan"><em class="fire">丙</em> 불</span>
           <span class="p-tag">주의 · 내 흙이 가장 아픈 자리로</span>
           <span class="p-bar"><i style="width:46%"></i></span><span class="p-score">46</span>
         </summary>
@@ -1794,48 +1802,6 @@
             <p><strong>어떻게 지내면 되나.</strong> <strong>거리를 두고 오래 보는 쪽</strong>이 맞다. 붙어 지내면 시각끼리의 거슬림이 그대로 작동하지만, 나무 기운이 완성되는 건 만날 때마다 유효하다. 그리고 <strong>챙기고 정리해주는 방식은 여기서 특히 안 통한다</strong> — 이미 넘치는 자리에 붓는 일이다. 이 사람에게 필요한 건 밀어주는 게 아니라 <strong>기댈 자리를 만들어 주는 쪽</strong>이다.</p>
             <div class="facts"><span class="fact good">나무 기운 완성 · 내 용신</span><span class="fact good">내 나무가 빈칸을 정확히 채움</span><span class="fact bad">내 흙이 가장 과한 자리를 키움</span><span class="fact bad">시각끼리 거슬림 · 일상 22점</span><span class="fact bad">마찰 4종 8겹 (충은 없음)</span><span class="fact">자기 편 25% · 극신약</span></div>
             <div class="warn"><b>자시 경계</b><span>기록된 <strong>23:10</strong>은 날짜가 넘어가는 <strong>밤 11시 30분까지 20분</strong>이다. 사주에서 하루가 바뀌는 기준은 자정이 아니라 이 시각이라, 실제가 23:30 이후였다면 <strong>태어난 날 글자부터 다음날로 넘어간다</strong> — 일간이 <strong class="fire">丙</strong>에서 <strong class="fire">丁</strong>으로, 시주는 <strong class="earth">己亥</strong>에서 <strong class="metal">庚子</strong>로 바뀌면서 <strong>자기 편이 25%→37.5%로 늘고 흙이 37.5%→12.5%로 줄어든다.</strong> 그러면 이 카드의 진단이 거의 전부 뒤집힌다. <strong>20분짜리 차이로 다른 사람이 되는 자리</strong>라 한 번 확인해 볼 값어치가 있다. 지역을 따로 듣지 않아 <strong>서울(30분 당김)</strong>로 계산했다.</span></div>
-          </div>
-        </div>
-      </details>
-
-      <details class="panel person" style="--bar:var(--ju)">
-        <summary>
-          <span class="p-rank">14</span><span class="p-name">배주영</span><span class="p-ilgan"><em class="earth">戊</em> 흙</span>
-          <span class="p-tag">부적합 · 나와 판박이</span>
-          <span class="p-bar"><i style="width:39%"></i></span><span class="p-score">39</span>
-        </summary>
-        <div class="p-body">
-          <div class="mini">
-            <div class="mp">
-              <span class="l"></span><span class="h">시</span><span class="h">일</span><span class="h">월</span><span class="h">년</span>
-              <span class="l">위</span>
-              <span><span class="g" style="color:var(--fg-3)">?</span><span class="t">미상</span></span>
-              <span class="me"><span class="g earth">무<b>戊</b></span><span class="t">본인</span></span>
-              <span><span class="g earth">기<b>己</b></span><span class="t">동료</span></span>
-              <span><span class="g earth">무<b>戊</b></span><span class="t">동료</span></span>
-              <span class="l">아래</span>
-              <span><span class="g" style="color:var(--fg-3)">?</span><span class="t">미상</span></span>
-              <span><span class="g fire">오<b>午</b></span><span class="t">받쳐줌</span></span>
-              <span><span class="g earth">미<b>未</b></span><span class="t">동료</span></span>
-              <span><span class="g wood">인<b>寅</b></span><span class="t">책임</span></span>
-            </div>
-            <div class="estrip">
-              <div class="e t-wood"><span class="en">나무</span><span class="eb"><span class="ef" style="width:25%"></span></span><span class="ev">16.7</span></div>
-              <div class="e t-fire"><span class="en">불</span><span class="eb"><span class="ef" style="width:25%"></span></span><span class="ev">16.7</span></div>
-              <div class="e t-earth"><span class="en">흙</span><span class="eb"><span class="ef" style="width:100%"></span></span><span class="ev">66.7</span></div>
-              <div class="e t-metal nil"><span class="en">쇠</span><span class="eb"></span><span class="ev">0</span></div>
-              <div class="e t-water nil"><span class="en">물</span><span class="eb"></span><span class="ev">0</span></div>
-            </div>
-            <div class="pscore"><h5>항목별 점수</h5><div class="ps bad"><span>기운이 오가는가</span><span class="b"><i style="width:35%"></i></span><span class="v">35</span><span class="w">20</span></div><div class="ps bad"><span>내가 얻는 것</span><span class="b"><i style="width:25%"></i></span><span class="v">25</span><span class="w">15</span></div><div class="ps bad"><span>상대가 얻는 것</span><span class="b"><i style="width:30%"></i></span><span class="v">30</span><span class="w">15</span></div><div class="ps mid"><span>일상이 편한가</span><span class="b"></span><span class="v">—</span><span class="w">제외</span></div><div class="ps mid"><span>부딪힘이 적은가</span><span class="b"><i style="width:60%"></i></span><span class="v">60</span><span class="w">20</span></div><div class="ps bad"><span>오래 가는가</span><span class="b"><i style="width:40%"></i></span><span class="v">40</span><span class="w">15</span></div><div class="ps tot bad"><span>합계</span><span class="b"><i style="width:39%"></i></span><span class="v">39</span><span class="w">85→100</span></div></div>
-          </div>
-          <div class="p-note">
-            <p><strong>나와 거의 판박이다.</strong> 같은 흙 일간에 흙이 66.7%, 자기 편이 83.3%. 그리고 <strong>비어 있는 네 자리가 완전히 같다</strong> — 표현 0, 돈 0, 쇠 0, 물 0<span class="gl">(내가 못 채우는 걸 상대도 못 채우고, 상대가 필요한 걸 나도 없다)</span>.</p>
-            <p>한여름 마른 흙에 불이 받쳐주는 구조라 <strong>기운이 아주 세다.</strong> 버티는 힘과 자기 확신이 대단한데, 그만큼 덜어낼 것이 절실하다. 그런데 내가 줄 수 있는 건 흙 62.5%뿐이라 <strong>정확히 반대 방향</strong>이다.</p>
-            <p>서로 겁재로 만나는 평행선 구조다<span class="gl">(같은 자리에 나란히 서서 같은 것을 두고 겨루는 형태)</span>. 이해는 빠르지만 새로 생기는 게 없고, 넘치는 흙을 양쪽 다 키운다.</p>
-            <p>부딪힘은 오히려 적은 편이다 — 어긋나는 짝이 두 겹뿐이고 붙는 짝이 여럿이다. <strong>싸울 일은 없는데 서로 도움이 안 되는</strong> 유형이라, 정민 님과 같은 계열이다.</p>
-            <p><strong>어떻게 지내면 되나.</strong> <strong>편한 사이로만 두면 된다.</strong> 싸울 일이 거의 없다는 건 실제로 큰 장점이고, 이 관계의 값은 거기까지다. 여기서 새로운 관점이나 자극을 기대하면 계속 아쉬울 수밖에 없다 — 서로 없는 게 똑같기 때문이다. <strong>같이 뭔가를 도모하는 자리만 피하면</strong> 오래 편하게 갈 수 있다.</p>
-            <div class="facts"><span class="fact bad">태어난 시각 미상 · 삼주 채점</span><span class="fact bad">빈 자리 네 개가 동일</span><span class="fact bad">둘 다 흙 과다</span><span class="fact good">부딪힘은 적음</span></div>
-            <div class="warn"><b>시각 미상</b><span>여덟 글자 중 둘이 빠져 <strong>여섯 글자로만 계산</strong>했다. “일상이 편한가”(15점)는 시각 글자로 보는 항목이라 채점에서 제외하고 85점 만점을 100점으로 환산했다. 태어난 시각을 알게 되면 점수가 달라질 수 있다.</span></div>
           </div>
         </div>
       </details>
@@ -2245,79 +2211,22 @@
 </script>
 
 <script>
-  /* 진행 막대와 현재 위치 — 목차는 문서의 제목에서 직접 만든다.
-     섹션이나 묶음이 늘어도 여기 손댈 곳이 없다. */
+  /* 진행 막대 — 제목 앵커는 위 보기 전환 스크립트가 붙여 둔다 */
   (function () {
-    var nav = document.getElementById('pagenav');
-    if (!nav) return;
-    var btn = nav.querySelector('.pn-btn'), now = nav.querySelector('.pn-now'),
-        list = nav.querySelector('.pn-list'), bar = document.querySelector('.progress i');
-
-    var all = [].slice.call(document.querySelectorAll('.sec-head h2, h3.subhead'));
-    if (!all.length) { nav.remove(); return; }
-    /* 앵커는 숨은 뷰의 제목에도 미리 붙여 둔다 — 주소로 바로 들어올 수 있어야 한다 */
-    all.forEach(function (h, i) { if (!h.id) h.id = 'h-' + i; });
-
-    var heads = [], items = [];
-    function build() {
-      /* 보기 전환은 이제 고정 바에 늘 떠 있으므로 이 목록에서는 뺐다.
-         여기는 지금 보는 쪽 안의 묶음만 다룬다. */
-      list.textContent = '';
-
-      var top = document.createElement('li');
-      top.className = 'top';
-      top.innerHTML = '<a href="#">맨 위로</a>';
-      list.appendChild(top);
-
-      heads = all.filter(function (h) { return h.offsetParent !== null || h.getClientRects().length; });
-      items = heads.map(function (h) {
-        /* <small> 보조 문구는 빼고 제목만 — 첫 텍스트 노드가 곧 제목이다 */
-        var t = (h.firstChild && h.firstChild.nodeType === 3 ? h.firstChild.nodeValue : h.textContent).trim();
-        var li = document.createElement('li');
-        if (h.tagName !== 'H2') li.className = 'sub';
-        li.innerHTML = '<a href="#' + h.id + '"></a>';
-        li.firstChild.textContent = t;
-        list.appendChild(li);
-        return li;
-      });
-    }
-    build();
-    addEventListener('viewchange', function () { close(); build(); update(); });
-
-    function open()  { nav.classList.add('open');    list.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
-    function close() { nav.classList.remove('open'); list.hidden = true;  btn.setAttribute('aria-expanded', 'false'); }
-
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      nav.classList.contains('open') ? close() : open();
-    });
-    list.addEventListener('click', function (e) { if (e.target.tagName === 'A') close(); });
-    document.addEventListener('click', function (e) { if (!nav.contains(e.target)) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-
+    var bar = document.querySelector('.progress i');
+    if (!bar) return;
     var pending = 0;
     function update() {
       pending = 0;
       var doc = document.documentElement;
       var max = doc.scrollHeight - doc.clientHeight;
       var y = window.scrollY || doc.scrollTop;
-      if (bar) bar.style.width = (max > 0 ? Math.min(100, Math.max(0, y / max * 100)) : 0) + '%';
-      /* 고정 바 안에 있으므로 늘 보인다 — 숨겼다 꺼내는 처리는 없앴다 */
-      if (!items.length) { nav.hidden = true; return; }
-      nav.hidden = false;
-
-      var cur = 0;
-      /* 감지선은 고정 바 바로 아래 */
-      heads.forEach(function (h, i) { if (h.getBoundingClientRect().top <= 130) cur = i; });
-      /* 마지막 묶음이 짧으면 바닥에 닿아도 감지선까지 못 올라온다 — 그때는 마지막 것으로 */
-      if (max > 0 && max - y < 4) cur = heads.length - 1;
-      var label = items[cur].textContent;
-      if (now.textContent !== label) now.textContent = label;
-      items.forEach(function (li, i) { li.classList.toggle('here', i === cur); });
+      bar.style.width = (max > 0 ? Math.min(100, Math.max(0, y / max * 100)) : 0) + '%';
     }
     function schedule() { if (!pending) pending = requestAnimationFrame(update); }
     addEventListener('scroll', schedule, { passive: true });
     addEventListener('resize', schedule);
+    addEventListener('viewchange', schedule);
     update();
   })();
 </script>
@@ -2387,7 +2296,7 @@
           <div class="band hit" style="--mark:var(--cheong)"><span class="pin">주형 77 · 진우 76 · 정원 71</span><span class="rng">70 – 84</span><span class="desc">좋음. 특별히 손보지 않아도 굴러감</span></div>
           <div class="band hit" style="--mark:var(--hwang)"><span class="pin">승미 69 · 윤성 68 · 도윤 65 · 아현 64 · 효정 63 · 엄마 62 · 민호 61</span><span class="rng">60 – 69</span><span class="desc">무난. 뭐가 문제인지 알고 관리하면 오래감</span></div>
           <div class="band hit" style="--mark:var(--hwang)"><span class="pin">수민 58 · 예준 57 · 제언 56 · 근영 54 · 동생 53 · 현지 51</span><span class="rng">50 – 59</span><span class="desc">보통. 들이는 노력에 비해 부딪힘이 큼</span></div>
-          <div class="band hit" style="--mark:var(--ju)"><span class="pin">고훈 49 · 소연 46 · 아빠 43 · 지윤 42 · 주영 39 · 정민 35</span><span class="rng">49점 이하</span><span class="desc">안 맞음. 한쪽 또는 양쪽이 계속 손해를 봄</span></div>
+          <div class="band hit" style="--mark:var(--ju)"><span class="pin">고훈 49 · 주영 47 · 소연 46 · 아빠 43 · 지윤 42 · 정민 35</span><span class="rng">49점 이하</span><span class="desc">안 맞음. 한쪽 또는 양쪽이 계속 손해를 봄</span></div>
         </div>
     </div>
   </div>
