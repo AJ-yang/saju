@@ -339,6 +339,34 @@
   .gcap { font-size:.9rem; color:var(--fg-2); line-height:1.68; }
   .gp-chart { overflow-x:auto; }
 
+  /* ── 부딪힘 ───────────────────────────────── */
+  .fricrows { columns:2 20rem; column-gap:2rem; }
+  .frow { display:grid; grid-template-columns:3.9rem 1fr 2.3rem; gap:.15rem .5rem; align-items:center;
+          padding:.42rem 0; border-bottom:1px solid var(--rule-soft); break-inside:avoid; }
+  .fname { font-size:.85rem; font-weight:650; letter-spacing:-.02em; white-space:nowrap; }
+  .ftrack { height:7px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+  .ftrack i { display:block; height:100%; background:var(--tone); border-radius:3px; }
+  .fsc { font-family:var(--serif); font-size:1rem; text-align:right; color:var(--tone); letter-spacing:-.02em; }
+  .fkinds { grid-column:2/4; display:flex; flex-wrap:wrap; gap:.25rem; }
+  .fk { font-size:.74rem; font-weight:600; letter-spacing:-.01em; padding:.1rem .34rem; border-radius:2px;
+        background:var(--surface-2); color:var(--fg-3); display:inline-flex; align-items:baseline; gap:.2rem; }
+  .fk i { font-style:normal; font-family:var(--mono); font-size:.92em; font-weight:700; }
+  .fk.hi { color:var(--ju); }
+  .fk.mid { color:var(--hwang); }
+  .fk.none { color:var(--cheong); font-weight:500; }
+  /* 종류마다 무슨 뜻이고 얼마나 무겁게 세는지를 판 안에서 바로 읽히게 한다 */
+  .fkey { margin-top:1rem; padding-top:.95rem; border-top:1px solid var(--rule-soft);
+          display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr)); gap:0 1.8rem; }
+  .fkrow { display:grid; grid-template-columns:.55rem 5.4rem 1fr 2.4rem; gap:.55rem; align-items:baseline;
+           padding:.42rem 0; border-bottom:1px solid var(--rule-soft); font-size:.83rem; }
+  .fkrow::before { content:""; width:.55rem; height:.55rem; border-radius:2px; background:var(--tone); align-self:center; }
+  .fkrow.hi { --tone:var(--ju); } .fkrow.mid { --tone:var(--hwang); } .fkrow.lo { --tone:var(--fg-3); }
+  .fkname { font-weight:650; color:var(--fg); white-space:nowrap; }
+  .fkname em { font-style:normal; font-family:var(--serif); font-size:.88em; color:var(--fg-3); margin-left:.22em; }
+  .fkdesc { color:var(--fg-2); line-height:1.6; }
+  .fkw { font-family:var(--mono); font-size:.77rem; font-weight:600; color:var(--tone); text-align:right; white-space:nowrap; }
+  .fknote { margin-top:.9rem; font-size:.84rem; color:var(--fg-2); line-height:1.68; }
+
   /* ── 분포도 ───────────────────────────────── */
   .chart-box { padding:1.5rem 1.2rem 1.15rem; overflow-x:auto; }
   .chart-box svg,.gp-chart svg { display:block; width:100%; min-width:720px; height:auto; }
@@ -573,7 +601,9 @@
     .p-bar { display:none; }
     .p-score { font-size:1.45rem; margin-left:auto; }
     .person>summary::after { margin-left:.5rem; }
-    .db { columns:1; }
+    .db,.fricrows { columns:1; }
+    .fkrow { grid-template-columns:.55rem 1fr 2.4rem; row-gap:.15rem; }
+    .fkdesc { grid-column:2/4; }
     .dbrow { grid-template-columns:4.2rem 1fr 2.8rem; padding:.42rem 0; }
     .dbval { display:none; }
     .scale-bar { grid-template-columns:1fr; }
@@ -951,9 +981,10 @@
 
     <div class="panel gbox">
       <h3>같은 사람을 다르게 보기</h3>
-      <p class="cap">점수 하나로는 안 보이는 것들이다. <strong>세 가지를 한 자리에서 갈아 가며 본다</strong> — 주고받는 균형은 한쪽만 이득인지, 처음과 오래는 시간이 내 편인지, 역할 배치는 어떤 일에 누구를 부르면 되는지를 답한다.</p>
+      <p class="cap">점수 하나로는 안 보이는 것들이다. <strong>네 가지를 한 자리에서 갈아 가며 본다</strong> — 주고받는 균형은 한쪽만 이득인지, 부딪힘은 어디서 어떻게 걸리는지, 처음과 오래는 시간이 내 편인지, 역할 배치는 어떤 일에 누구를 부르면 되는지를 답한다.</p>
       <div class="gtabs" role="tablist" aria-label="보는 방식">
         <button class="gtab" type="button" role="tab" id="g-bal"  aria-controls="gp-bal"  aria-selected="true">주고받는 균형</button>
+        <button class="gtab" type="button" role="tab" id="g-fric" aria-controls="gp-fric" aria-selected="false">부딪힘</button>
         <button class="gtab" type="button" role="tab" id="g-scat" aria-controls="gp-scat" aria-selected="false">처음과 오래</button>
         <button class="gtab" type="button" role="tab" id="g-role" aria-controls="gp-role" aria-selected="false">역할 배치</button>
       </div>
@@ -986,6 +1017,37 @@
         <div class="dbrow" style="--tone:var(--ju)"><span class="dbname">문지윤</span><span class="dbtrack"><i class="g25"></i><i class="g50"></i><i class="g75"></i><i class="dbline" style="left:12%;width:83%"></i><b class="dbme" style="left:95%"></b><b class="dbthem" style="left:12%"></b></span><span class="dbval">95 · 12</span><span class="dbgap">83</span></div>
         <div class="dblegend"><span><i class="f"></i>내가 얻는 것</span><span><i class="h"></i>상대가 얻는 것</span><span><i class="l" style="background:var(--cheong)"></i>차이 20 이하</span><span><i class="l" style="background:var(--hwang)"></i>21–40</span><span><i class="l" style="background:var(--ju)"></i>41 이상</span><span><i class="tick"></i>눈금은 왼쪽부터 25 · 50 · 75</span><span><i class="num"></i>숫자는 나 · 상대, 그 뒤가 차이</span></div>
       </div>
+      </div>
+
+      <div class="gpanel" id="gp-fric" role="tabpanel" aria-labelledby="g-fric" hidden>
+        <p class="gcap"><strong>겹수보다 종류가 중요하다.</strong> 부딪히는 자리가 몇 군데인지보다 <strong>어떤 종류로 부딪히는지</strong>가 관계의 무게를 정한다 — 정면으로 맞서는 짝 하나가 은근히 방해하는 짝 두 겹보다 아프다. <span class="gl">(신승미 님과 배주영 님은 둘 다 부딪히는 자리가 두 군데인데 점수가 열여덟 점 차이 난다. 하나는 정면 충돌이고 하나는 깨짐이라서다.)</span></p>
+        <div class="fricrows">
+          <div class="frow" style="--tone:var(--cheong)"><span class="fname">배주영</span><span class="ftrack"><i style="width:82%"></i></span><span class="fsc">82</span><span class="fkinds"><span class="fk lo">깨짐<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--cheong)"><span class="fname">유주형</span><span class="ftrack"><i style="width:74%"></i></span><span class="fsc">74</span><span class="fkinds"><span class="fk lo">깨짐<i>2</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--cheong)"><span class="fname">김진우</span><span class="ftrack"><i style="width:73%"></i></span><span class="fsc">73</span><span class="fkinds"><span class="fk mid">거슬림<i>1</i></span><span class="fk lo">깨짐<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--cheong)"><span class="fname">최윤성</span><span class="ftrack"><i style="width:64%"></i></span><span class="fsc">64</span><span class="fkinds"><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">방해<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--cheong)"><span class="fname">신승미</span><span class="ftrack"><i style="width:64%"></i></span><span class="fsc">64</span><span class="fkinds"><span class="fk hi">충돌<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--hwang)"><span class="fname">문지윤</span><span class="ftrack"><i style="width:54%"></i></span><span class="fsc">54</span><span class="fkinds"><span class="fk mid">거슬림<i>1</i></span><span class="fk lo">깨짐<i>2</i></span><span class="fk lo">방해<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--hwang)"><span class="fname">이예준</span><span class="ftrack"><i style="width:51%"></i></span><span class="fsc">51</span><span class="fkinds"><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">방해<i>3</i></span><span class="fk lo">닮은꼴<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--hwang)"><span class="fname">양정수</span><span class="ftrack"><i style="width:50%"></i></span><span class="fsc">50</span><span class="fkinds"><span class="fk lo">방해<i>4</i></span><span class="fk lo">닮은꼴<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--hwang)"><span class="fname">심효정</span><span class="ftrack"><i style="width:46%"></i></span><span class="fsc">46</span><span class="fkinds"><span class="fk hi">충돌<i>2</i></span><span class="fk mid">거슬림<i>1</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--hwang)"><span class="fname">이제언</span><span class="ftrack"><i style="width:46%"></i></span><span class="fsc">46</span><span class="fkinds"><span class="fk mid">거슬림<i>3</i></span><span class="fk lo">방해<i>3</i></span><span class="fk lo">닮은꼴<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--hwang)"><span class="fname">김정민</span><span class="ftrack"><i style="width:43%"></i></span><span class="fsc">43</span><span class="fkinds"><span class="fk hi">충돌<i>1</i></span><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">깨짐<i>1</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">김소연</span><span class="ftrack"><i style="width:39%"></i></span><span class="fsc">39</span><span class="fkinds"><span class="fk mid">거슬림<i>3</i></span><span class="fk lo">깨짐<i>2</i></span><span class="fk lo">방해<i>2</i></span><span class="fk lo">닮은꼴<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">김주호</span><span class="ftrack"><i style="width:38%"></i></span><span class="fsc">38</span><span class="fkinds"><span class="fk hi">충돌<i>1</i></span><span class="fk hi">엇갈림<i>2</i></span><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">깨짐<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">김도윤</span><span class="ftrack"><i style="width:36%"></i></span><span class="fsc">36</span><span class="fkinds"><span class="fk hi">충돌<i>2</i></span><span class="fk lo">깨짐<i>4</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">김아현</span><span class="ftrack"><i style="width:35%"></i></span><span class="fsc">35</span><span class="fkinds"><span class="fk hi">엇갈림<i>4</i></span><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">신고훈</span><span class="ftrack"><i style="width:35%"></i></span><span class="fsc">35</span><span class="fkinds"><span class="fk hi">충돌<i>2</i></span><span class="fk hi">엇갈림<i>2</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">이은희</span><span class="ftrack"><i style="width:33%"></i></span><span class="fsc">33</span><span class="fkinds"><span class="fk hi">충돌<i>4</i></span><span class="fk mid">거슬림<i>1</i></span><span class="fk lo">깨짐<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">전민호</span><span class="ftrack"><i style="width:33%"></i></span><span class="fsc">33</span><span class="fkinds"><span class="fk hi">충돌<i>2</i></span><span class="fk mid">거슬림<i>4</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">노수민</span><span class="ftrack"><i style="width:32%"></i></span><span class="fsc">32</span><span class="fkinds"><span class="fk hi">충돌<i>1</i></span><span class="fk hi">엇갈림<i>1</i></span><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">깨짐<i>2</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">김근영</span><span class="ftrack"><i style="width:32%"></i></span><span class="fsc">32</span><span class="fkinds"><span class="fk hi">충돌<i>4</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">양대영</span><span class="ftrack"><i style="width:28%"></i></span><span class="fsc">28</span><span class="fkinds"><span class="fk hi">충돌<i>1</i></span><span class="fk hi">엇갈림<i>1</i></span><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">깨짐<i>2</i></span><span class="fk lo">방해<i>1</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">박정원</span><span class="ftrack"><i style="width:28%"></i></span><span class="fsc">28</span><span class="fkinds"><span class="fk hi">충돌<i>2</i></span><span class="fk mid">거슬림<i>4</i></span><span class="fk lo">깨짐<i>2</i></span></span></div>
+          <div class="frow" style="--tone:var(--ju)"><span class="fname">장현지</span><span class="ftrack"><i style="width:28%"></i></span><span class="fsc">28</span><span class="fkinds"><span class="fk hi">충돌<i>1</i></span><span class="fk hi">엇갈림<i>1</i></span><span class="fk mid">거슬림<i>2</i></span><span class="fk lo">방해<i>3</i></span><span class="fk lo">닮은꼴<i>1</i></span></span></div>
+        </div>
+        <div class="fkey"><div class="fkrow hi"><span class="fkname">정면 충돌<em>沖</em></span><span class="fkdesc">정반대 글자가 맞부딪힌다. 늘 같은 주제로 반복해서 싸운다.</span><span class="fkw">×2.0</span></div><div class="fkrow hi"><span class="fkname">엇갈림<em>刑</em></span><span class="fkdesc">서로 발목을 잡는 긴장. 도우려다 오히려 방해가 된다.</span><span class="fkw">×1.5</span></div><div class="fkrow mid"><span class="fkname">거슬림<em>怨嗔</em></span><span class="fkdesc">이유를 대기 어려운데 자꾸 밉다. 가까워질수록 심해진다.</span><span class="fkw">×1.2</span></div><div class="fkrow lo"><span class="fkname">깨짐<em>破</em></span><span class="fkdesc">잘 되어 가던 일이 어그러진다.</span><span class="fkw">×1.0</span></div><div class="fkrow lo"><span class="fkname">방해<em>害</em></span><span class="fkdesc">티는 안 나는데 손해가 조금씩 쌓인다.</span><span class="fkw">×1.0</span></div><div class="fkrow lo"><span class="fkname">닮은꼴<em>自刑</em></span><span class="fkdesc">같은 글자끼리 맞물려 스스로 지친다.</span><span class="fkw">×1.0</span></div></div>
+        <p class="fknote">무게는 <strong>가중 겹수</strong>를 낼 때 곱하는 값이다 — 겹수를 그냥 더하지 않고 종류마다 다르게 센다는 뜻이다. <strong>태어난 날끼리 · 태어난 시각끼리 부딪히면 여기에 한 번 더 곱한다</strong><span class="gl">(그 두 자리가 가장 가까이 닿는 자리라서다)</span>. 그래서 같은 겹수라도 어디서 어떤 종류로 걸리느냐에 따라 점수가 크게 갈린다.</p>
       </div>
 
       <div class="gpanel gp-chart" id="gp-scat" role="tabpanel" aria-labelledby="g-scat" hidden>
@@ -2304,6 +2366,7 @@
       <div class="term"><dt>엇갈림<em>刑</em></dt><dd>서로 발목을 잡는 긴장. 도우려다 오히려 방해가 된다.</dd></div>
       <div class="term"><dt>깨짐<em>破</em></dt><dd>잘 되어 가던 일이 어그러진다.</dd></div>
       <div class="term"><dt>은근한 방해<em>害</em></dt><dd>티는 안 나는데 손해가 조금씩 쌓인다.</dd></div>
+      <div class="term"><dt>닮은꼴<em>自刑</em></dt><dd>같은 글자끼리 맞물린다. 성향이 너무 닮아 서로를 밀어내지 못하고 스스로 지친다.</dd></div>
     </dl>
     <h3>사주 기본 용어 <small>여덟 글자를 읽는 법</small></h3>
     <dl class="terms">
